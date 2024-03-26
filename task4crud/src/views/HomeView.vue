@@ -7,9 +7,7 @@
 </template>
 
 <script>
-// @ is an alias to /src
 // import NotesPage from "@/components/NotesPage.vue";
-
 export default {
   name: "HomeView",
   // components: {

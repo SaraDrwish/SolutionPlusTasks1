@@ -28,17 +28,20 @@
               <span> edit </span>
               <span> add </span>
               <span> delete </span>
+              <span> show </span>
+            </li>
+            <!-- <li>
+              <span> edit </span>
+              <span> add </span>
+              <span> delete </span>
+              <span> show </span>
             </li>
             <li>
               <span> edit </span>
               <span> add </span>
               <span> delete </span>
-            </li>
-            <li>
-              <span> edit </span>
-              <span> add </span>
-              <span> delete </span>
-            </li>
+              <span> show </span>
+            </li> -->
           </ul>
         </div>
       </div>
@@ -91,12 +94,21 @@ ul {
       }
     }
     .ul-CRUD-ptns {
+      li {
+        margin: auto;
+        border-radius: 0.4rem;
+        background: unset;
+      }
       span {
         cursor: pointer;
-        color: rgb(181, 203, 204);
-        font-weight: 600;
-        padding: 0 1rem;
+        color: rgb(23, 46, 47);
+        font-weight: 500;
+        padding: 0.3rem;
         transition: all 0.4s ease-in;
+        border: 1px solid rgb(181, 203, 204);
+        background-color: rgb(255, 177, 143);
+        margin: 0.4rem;
+        border-radius: 0.4rem;
       }
       :hover {
         color: rgb(124, 154, 144);
