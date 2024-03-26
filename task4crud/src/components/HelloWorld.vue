@@ -8,38 +8,30 @@
       <div class="noteBoxes">
         <h4>Notes :</h4>
         <table>
-          <th>
-            <td>title</td>
-            <td>description</td>
-            <td>complete</td>
-          </th>
-          <th>
+          <tr>
+            <th>title</th>
+            <th>description</th>
+            <th>complete</th>
+          </tr>
+          <tr>
             <td>title,,,,,,,,</td>
-            <td>cccccc
-              ccccccccccgggggggdescription,,,ggggggggggggggggggggggggggg
+            <td>
+              cccccc ccccccccccgggggggdescription,,,ggggggggggggggggggggggggggg
               gggggggggggggggggggggggggggggggggggggg
               gggggggggggggggggggggggggggggggggggggggggggggggg
-              ggggggggggggggcccccc
-              ccccccccccgggggggcccccc
-              ccccccccccggggggg
-              cccccc
-              ccccccccccgggggggcccccc
-              ccccccccccgggggggcccccc
-              ccccccccccgggggggggcccccc
-              ccccccccccggggggg
-              cccccc
-              ccccccccccgggggggcccccc
-              ccccccccccgggggggcccccc
-              ccccccccccgggggggggcccccc
-              ccccccccccggggggg
-              cccccc
-              ccccccccccgggggggcccccc
-              ccccccccccgggggggcccccc
+              ggggggggggggggcccccc ccccccccccgggggggcccccc ccccccccccggggggg
+              cccccc ccccccccccgggggggcccccc ccccccccccgggggggcccccc
+              ccccccccccgggggggggcccccc ccccccccccggggggg cccccc
+              ccccccccccgggggggcccccc ccccccccccgggggggcccccc
+              ccccccccccgggggggggcccccc ccccccccccggggggggcccccc
+              ccccccccccggggggggcccccc ccccccccccggggggggcccccc ccccccccccgggggg
+              ggcccccc ccccccccccggggggggcccccc ccccccccccggggggg cccccc
+              ccccccccccgggggggcccccc ccccccccccgggggggcccccc
               ccccccccccgggggggggggggggggggggggg
-              ccccccccccgggggggggggggggggggggggg
-              ggggggggg,,,,</td>
+              ccccccccccgggggggggggggggggggggggg ggggggggg,,,,
+            </td>
             <td>complete,,,,,,,</td>
-          </th>
+          </tr>
         </table>
       </div>
     </div>
@@ -56,7 +48,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
- 
 .noteBoxes {
   width: 90%;
   font-size: 22px;
@@ -71,32 +62,44 @@ export default {
   border-radius: 2rem;
 
   table {
-    width: 90%;
+    width: 80%;
     background-color: rgb(232, 202, 214);
     color: rgb(69, 39, 51);
-    margin: auto;
+    margin: 1rem auto;
     display: flex;
     gap: 1rem;
     flex-direction: column;
-    text-align: left;
+    // text-align: left;
     padding: 2rem;
     border: 2px solid rgb(82, 49, 62);
     border-radius: 2rem;
     border-collapse: collapse;
 
+    tr {
+      text-align: center;
+      // display: flex;
+      // justify-content: center;
+      // align-items: center;
+      // flex-direction: column;
+      width: 90%;
+      background: rgb(85, 122, 85);
+      padding: 1rem;
+      margin: auto;
 
-    th  {
-      // text-align: center;
-      width: 100%;
-      border: 2px solid rgb(153, 109, 126);
-      padding: 2rem;
-      td{
-        width: 20%;
-        border: 2px solid rgb(153, 109, 126);
-
+      th {
+        width: 100%;
+        background: yellow;
+        padding: 1rem;
+        margin: 1rem;
+      }
+      td {
+        width: 100%;
+        // border: 2px solid rgb(153, 109, 126);
+        background: red;
+        padding: 1rem;
+        margin: 1rem;
       }
     }
   }
-
 }
 </style>
