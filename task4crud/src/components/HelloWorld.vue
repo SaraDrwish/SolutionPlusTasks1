@@ -7,32 +7,48 @@
     <div class="container">
       <div class="noteBoxes">
         <h4>Notes :</h4>
-        <table>
-          <tr>
-            <th>title</th>
-            <th>description</th>
-            <th>complete</th>
-          </tr>
-          <tr>
-            <td>title,,,,,,,,</td>
-            <td>
-              cccccc ccccccccccgggggggdescription,,,ggggggggggggggggggggggggggg
-              gggggggggggggggggggggggggggggggggggggg
-              gggggggggggggggggggggggggggggggggggggggggggggggg
-              ggggggggggggggcccccc ccccccccccgggggggcccccc ccccccccccggggggg
-              cccccc ccccccccccgggggggcccccc ccccccccccgggggggcccccc
-              ccccccccccgggggggggcccccc ccccccccccggggggg cccccc
-              ccccccccccgggggggcccccc ccccccccccgggggggcccccc
-              ccccccccccgggggggggcccccc ccccccccccggggggggcccccc
-              ccccccccccggggggggcccccc ccccccccccggggggggcccccc ccccccccccgggggg
-              ggcccccc ccccccccccggggggggcccccc ccccccccccggggggg cccccc
-              ccccccccccgggggggcccccc ccccccccccgggggggcccccc
-              ccccccccccgggggggggggggggggggggggg
-              ccccccccccgggggggggggggggggggggggg ggggggggg,,,,
-            </td>
-            <td>complete,,,,,,,</td>
-          </tr>
-        </table>
+
+        <div class="bigNoteConteiner">
+          <div class="noteBoxHead">
+            <ul>
+              <li>tilte</li>
+              <li>decs</li>
+              <li>complete</li>
+            </ul>
+          </div>
+          <div class="noteBoxItem">
+            <ul>
+              <li>tiltetiltetiltetilte</li>
+              <li>
+                decsdecsdecsdecsdec sdecsdecsdecsdecs
+                csdecsdecsdecsdecsdecsdecsdecsdecsdecsdecsdecs
+                decsdecsdecsdecsdecsdecsdecsdecs decsdecs decsdecsdecsdecsdecs
+                decsdecsdecsdecsdecsd ecsdecsdecs decsdecsdecsdecsdecsdecsdecs
+              </li>
+              <li>completecomplete</li>
+            </ul>
+            <ul>
+              <li>
+                <!-- <p>edit</p>
+              <p>add</p>
+              <p>delete</p> -->
+                <span> edit </span>
+                <span> add </span>
+                <span> delete </span>
+              </li>
+              <li>
+                <span> edit </span>
+                <span> add </span>
+                <span> delete </span>
+              </li>
+              <li>
+                <span> edit </span>
+                <span> add </span>
+                <span> delete </span>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -48,6 +64,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
+ul {
+  display: flex;
+  list-style: none;
+  // word-wrap: break-word;
+}
+
 .noteBoxes {
   width: 90%;
   font-size: 22px;
@@ -61,43 +83,26 @@ export default {
   color: rgb(226, 198, 209);
   border-radius: 2rem;
 
-  table {
-    width: 80%;
-    background-color: rgb(232, 202, 214);
-    color: rgb(69, 39, 51);
-    margin: 1rem auto;
-    display: flex;
-    gap: 1rem;
-    flex-direction: column;
-    // text-align: left;
-    padding: 2rem;
-    border: 2px solid rgb(82, 49, 62);
+  .bigNoteConteiner {
+    width: 90%;
+    margin: auto;
+    padding: 2rem 1rem;
+    background-color: rgb(194, 157, 170);
     border-radius: 2rem;
-    border-collapse: collapse;
 
-    tr {
-      text-align: center;
-      // display: flex;
-      // justify-content: center;
-      // align-items: center;
-      // flex-direction: column;
-      width: 90%;
-      background: rgb(85, 122, 85);
-      padding: 1rem;
+    .noteBoxHead,
+    .noteBoxItem {
       margin: auto;
+      width: 90%;
 
-      th {
-        width: 100%;
-        background: yellow;
-        padding: 1rem;
+      li {
+        word-wrap: break-word;
+        width: 28%;
         margin: 1rem;
-      }
-      td {
-        width: 100%;
-        // border: 2px solid rgb(153, 109, 126);
-        background: red;
         padding: 1rem;
-        margin: 1rem;
+        background: rgb(92, 79, 79);
+        text-align: left;
+        border-radius: 2rem;
       }
     }
   }
