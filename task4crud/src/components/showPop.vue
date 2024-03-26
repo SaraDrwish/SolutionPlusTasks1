@@ -1,9 +1,9 @@
 <template>
   <div class="showPop">
-    <!-- <h3>{{ title }}</h3>
-    <p>{{ desc }}</p>
-    <p>{{ complete }}</p> -->
-    <p>lalalalalallalalalalalalal</p>
+    <h3>title is : {{ this.$store.state.title }}</h3>
+    <p>description is : {{ this.$store.state.desc }}</p>
+    <p>completed : {{ this.$store.state.completed }}</p>
+    <!-- <p>lalalalalallalalalalalalal</p> -->
   </div>
 </template>
 
@@ -19,11 +19,6 @@ export default {
   height: 60%;
   background: rgba(255, 145, 35, 0.978);
   padding: 1rem;
-  // margin: auto;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
-  // text-align: center;
   border-radius: 2rem;
   color: rgb(64, 126, 126);
   position: absolute;

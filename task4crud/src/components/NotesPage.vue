@@ -17,7 +17,7 @@
             <li>complete</li>
           </ul>
           <ul class="ul-content">
-            <li>tiltetil tetilte tilte</li>
+            <li>tiltetil : {{ title }}</li>
             <li>
               decs decsdecsdecsdec sdecsdecsdecsdecs csdecsdecsdecsdecsds
               decsdecs decsdecsdecsdecsdecs decsdecsdecsdecsdecsd ecsdecsdecs
@@ -29,8 +29,8 @@
             <li>
               <span @click="openPop"> edit </span>
               <span> add </span>
-              <span @click="showPopupp = !showPopupp"> delete </span>
-              <span @click="showPopp"> show </span>
+              <span> delete </span>
+              <span @click="showPopupp = !showPopupp"> show </span>
             </li>
           </ul>
         </div>
@@ -41,7 +41,6 @@
 
 <script>
 import showPop from "./showPop.vue";
-// import { filters } from "../filters/shorten";
 export default {
   name: "NotesPage",
   components: {
@@ -49,11 +48,13 @@ export default {
   },
   props: {
     msg: String,
-    showP: false,
   },
   data() {
     return {
       showPopupp: false,
+      title: "title",
+      desc: "decs",
+      completed: false,
     };
   },
 
@@ -61,9 +62,10 @@ export default {
     openPop: () => {
       console.log("Edit : openPop btn has been clikced");
     },
-    showPopp: () => {
-      console.log("show : pop has been clikced");
-    },
+    // showPopuppFunc: () => {
+    //   showPopupp: false;
+    //   console.log("show : pop has been clikced");
+    // },
   },
 
   mounted: () => {
