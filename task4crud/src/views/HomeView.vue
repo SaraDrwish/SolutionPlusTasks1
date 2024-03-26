@@ -1,17 +1,22 @@
 <template>
   <div class="home">
-    <h1>Welcome to Notes Home</h1>
-    <h3>crud notes using vuex and local Storage to save data</h3>
-    <!-- <NotesPage msg="Welcome to Your The Task 4 of week 4 " /> -->
+    <h1>Welcome to Notes Home - task of week 4</h1>
+    <h3>CRUD notes using vuex and local Storage</h3>
   </div>
 </template>
 
 <script>
-// import NotesPage from "@/components/NotesPage.vue";
 export default {
   name: "HomeView",
-  // components: {
-  //   NotesPage,
-  // },
 };
 </script>
+
+<style lang="scss" scoped>
+.home {
+  width: 80%;
+  padding: 1rem;
+  border-radius: 2rem;
+  margin: 4rem auto;
+  background-color: rgb(213, 190, 199);
+}
+</style>

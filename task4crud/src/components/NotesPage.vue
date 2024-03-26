@@ -1,11 +1,8 @@
 <template>
   <div class="note">
-    <div class="">
-      <h1>{{ msg }}</h1>
-    </div>
     <div class="container">
       <div class="noteBoxes">
-        <h4>Notes :</h4>
+        <h2>Notes :</h2>
 
         <div class="bigNoteConteiner">
           <ul class="ul-head">
@@ -25,23 +22,11 @@
           </ul>
           <ul class="ul-CRUD-ptns">
             <li>
-              <span> edit </span>
+              <span @click="openPop"> edit </span>
               <span> add </span>
               <span> delete </span>
               <span> show </span>
             </li>
-            <!-- <li>
-              <span> edit </span>
-              <span> add </span>
-              <span> delete </span>
-              <span> show </span>
-            </li>
-            <li>
-              <span> edit </span>
-              <span> add </span>
-              <span> delete </span>
-              <span> show </span>
-            </li> -->
           </ul>
         </div>
       </div>
@@ -55,6 +40,16 @@ export default {
   props: {
     msg: String,
   },
+
+  methods: {
+    openPop: () => {
+      console.log("openPop btn has been clikced");
+    },
+  },
+
+  mounted: () => {
+    console.log("mounted log");
+  },
 };
 </script>
 
@@ -62,7 +57,6 @@ export default {
 ul {
   display: flex;
   list-style: none;
-  // word-wrap: break-word;
 }
 
 .noteBoxes {
@@ -99,7 +93,6 @@ ul {
         display: flex;
         margin: auto;
         border-radius: 0.4rem;
-        // text-align: center;
         background: unset;
         justify-content: space-evenly;
       }
