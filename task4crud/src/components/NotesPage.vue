@@ -95,15 +95,19 @@ ul {
     }
     .ul-CRUD-ptns {
       li {
+        width: 40%;
+        display: flex;
         margin: auto;
         border-radius: 0.4rem;
+        // text-align: center;
         background: unset;
+        justify-content: space-evenly;
       }
       span {
         cursor: pointer;
         color: rgb(23, 46, 47);
         font-weight: 500;
-        padding: 0.3rem;
+        padding: 0.8rem;
         transition: all 0.4s ease-in;
         border: 1px solid rgb(181, 203, 204);
         background-color: rgb(255, 177, 143);
