@@ -9,45 +9,38 @@
         <h4>Notes :</h4>
 
         <div class="bigNoteConteiner">
-          <div class="noteBoxHead">
-            <ul>
-              <li>tilte</li>
-              <li>decs</li>
-              <li>complete</li>
-            </ul>
-          </div>
-          <div class="noteBoxItem">
-            <ul>
-              <li>tiltetiltetiltetilte</li>
-              <li>
-                decsdecsdecsdecsdec sdecsdecsdecsdecs
-                csdecsdecsdecsdecsdecsdecsdecsdecsdecsdecsdecs
-                decsdecsdecsdecsdecsdecsdecsdecs decsdecs decsdecsdecsdecsdecs
-                decsdecsdecsdecsdecsd ecsdecsdecs decsdecsdecsdecsdecsdecsdecs
-              </li>
-              <li>completecomplete</li>
-            </ul>
-            <ul>
-              <li>
-                <!-- <p>edit</p>
-              <p>add</p>
-              <p>delete</p> -->
-                <span> edit </span>
-                <span> add </span>
-                <span> delete </span>
-              </li>
-              <li>
-                <span> edit </span>
-                <span> add </span>
-                <span> delete </span>
-              </li>
-              <li>
-                <span> edit </span>
-                <span> add </span>
-                <span> delete </span>
-              </li>
-            </ul>
-          </div>
+          <ul class="ul-head">
+            <li>tilte</li>
+            <li>decs</li>
+            <li>complete</li>
+          </ul>
+          <ul class="ul-content">
+            <li>tiltetil tetilte tilte</li>
+            <li>
+              decs decsdecsdecsdec sdecsdecsdecsdecs
+              csdecsdecsdecsdecsdecsdecsdecsdecsdecsdecsdecs
+              decsdecsdecsdecsdecsdecsdecsdecs decsdecs decsdecsdecsdecsdecs
+              decsdecsdecsdecsdecsd ecsdecsdecs decsdecsdecsdecsdecsdecsdecs
+            </li>
+            <li>complete : no</li>
+          </ul>
+          <ul class="ul-CRUD-ptns">
+            <li>
+              <span> edit </span>
+              <span> add </span>
+              <span> delete </span>
+            </li>
+            <li>
+              <span> edit </span>
+              <span> add </span>
+              <span> delete </span>
+            </li>
+            <li>
+              <span> edit </span>
+              <span> add </span>
+              <span> delete </span>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -79,31 +72,45 @@ ul {
   align-content: center;
   margin: 1rem auto;
   background-color: rgb(123, 82, 98);
-  padding: 1rem;
+  padding: 2rem 1rem;
   color: rgb(226, 198, 209);
   border-radius: 2rem;
 
   .bigNoteConteiner {
     width: 90%;
+    text-transform: capitalize;
     margin: auto;
     padding: 2rem 1rem;
     background-color: rgb(194, 157, 170);
     border-radius: 2rem;
 
-    .noteBoxHead,
-    .noteBoxItem {
-      margin: auto;
-      width: 90%;
-
+    .ul-head {
       li {
-        word-wrap: break-word;
-        width: 28%;
-        margin: 1rem;
-        padding: 1rem;
-        background: rgb(92, 79, 79);
-        text-align: left;
-        border-radius: 2rem;
+        margin: auto;
+        color: orange;
+        text-align: center;
       }
+    }
+    .ul-CRUD-ptns {
+      span {
+        cursor: pointer;
+        color: rgb(181, 203, 204);
+        font-weight: 600;
+        padding: 0 1rem;
+        transition: all 0.4s ease-in;
+      }
+      :hover {
+        color: rgb(124, 154, 144);
+      }
+    }
+    li {
+      word-wrap: break-word;
+      width: 28%;
+      margin: 1rem;
+      padding: 1rem;
+      background: rgb(92, 79, 79);
+      text-align: left;
+      border-radius: 2rem;
     }
   }
 }
