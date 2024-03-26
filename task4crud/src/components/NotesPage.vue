@@ -17,23 +17,22 @@
             <li>complete</li>
           </ul>
           <ul class="ul-content">
-            <li>tiltetil : {{ title }}</li>
-            <li>
-              decs decsdecsdecsdec sdecsdecsdecsdecs csdecsdecsdecsdecsds
-              decsdecs decsdecsdecsdecsdecs decsdecsdecsdecsdecsd ecsdecsdecs
-              decsdecsdecs
-            </li>
-            <li>complete : no</li>
+            <li>title : {{ title }}</li>
+            <li>desc : {{ desc | shorten }}</li>
+            <li>complete : {{ completed }}</li>
           </ul>
-          <ul class="ul-CRUD-ptns">
-            <li>
-              <span @click="openPop"> edit </span>
-              <span> add </span>
-              <span> delete </span>
-              <span @click="showPopupp = !showPopupp"> show </span>
-            </li>
-          </ul>
+          <div class="btns-box-container">
+            <ul class="ul-CRUD-ptns">
+              <li>
+                <span @click="openPop"> edit </span>
+                <span> add </span>
+                <span> delete </span>
+                <span @click="showPopupp = !showPopupp"> show </span>
+              </li>
+            </ul>
+          </div>
         </div>
+        <!-- ----- -->
       </div>
     </div>
   </div>
@@ -41,6 +40,7 @@
 
 <script>
 import showPop from "./showPop.vue";
+import shorten from "../filters/shorten";
 export default {
   name: "NotesPage",
   components: {
@@ -52,9 +52,9 @@ export default {
   data() {
     return {
       showPopupp: false,
-      title: "title",
-      desc: "decs",
-      completed: false,
+      title: "tiltetil 1",
+      desc: `decsaaaaaaaaaaaa aaaaa aa aaa aww aawa a a aw a sww `,
+      completed: false ? " yes" : " no ",
     };
   },
 
@@ -97,7 +97,7 @@ ul {
     position: relative;
     width: 90%;
     text-transform: capitalize;
-    margin: auto;
+    margin: 1rem auto;
     padding: 2rem 1rem;
     background-color: rgb(194, 157, 170);
     border-radius: 2rem;
@@ -109,39 +109,39 @@ ul {
         text-align: center;
       }
     }
-    .ul-CRUD-ptns {
-      li {
-        width: 40%;
-        display: flex;
-        margin: auto;
-        border-radius: 0.4rem;
-        background: unset;
-        justify-content: space-evenly;
-      }
-      span {
-        cursor: pointer;
-        color: rgb(23, 46, 47);
-        font-weight: 500;
-        padding: 0.8rem;
-        transition: all 0.4s ease-in;
-        border: 1px solid rgb(181, 203, 204);
-        background-color: rgb(255, 177, 143);
-        margin: 0.4rem;
-        border-radius: 0.4rem;
-      }
-      :hover {
-        color: rgb(124, 154, 144);
-      }
-    }
+  }
+  .ul-CRUD-ptns {
     li {
-      word-wrap: break-word;
-      width: 28%;
-      margin: 1rem;
-      padding: 1rem;
-      background: rgb(92, 79, 79);
-      text-align: left;
-      border-radius: 2rem;
+      width: 40%;
+      display: flex;
+      margin: auto;
+      border-radius: 0.4rem;
+      background: unset;
+      justify-content: space-evenly;
     }
+    span {
+      cursor: pointer;
+      color: rgb(23, 46, 47);
+      font-weight: 500;
+      padding: 0.8rem;
+      transition: all 0.4s ease-in;
+      border: 1px solid rgb(181, 203, 204);
+      background-color: rgb(255, 177, 143);
+      margin: 0.4rem;
+      border-radius: 0.4rem;
+    }
+    :hover {
+      color: rgb(124, 154, 144);
+    }
+  }
+  li {
+    word-wrap: break-word;
+    width: 28%;
+    margin: 1rem;
+    padding: 1rem;
+    background: rgb(92, 79, 79);
+    text-align: left;
+    border-radius: 2rem;
   }
 }
 </style>

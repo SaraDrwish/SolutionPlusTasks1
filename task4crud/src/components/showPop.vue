@@ -1,6 +1,6 @@
 <template>
   <div class="showPop">
-    <h3>title is : {{ this.$store.state.title }}</h3>
+    <h3><span>title is :</span> {{ this.$store.state.title }}</h3>
     <p>description is : {{ this.$store.state.desc }}</p>
     <p>completed : {{ this.$store.state.completed }}</p>
     <!-- <p>lalalalalallalalalalalalal</p> -->
