@@ -3,7 +3,6 @@
     <h3><span>title is :</span> {{ this.$store.state.title }}</h3>
     <p>description is : {{ this.$store.state.desc }}</p>
     <p>completed : {{ this.$store.state.completed }}</p>
-    <!-- <p>lalalalalallalalalalalalal</p> -->
   </div>
 </template>
 

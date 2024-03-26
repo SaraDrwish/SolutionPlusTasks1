@@ -4,7 +4,7 @@
       <div class="noteBoxes">
         <h2>Notes :</h2>
 
-        <div class="bigNoteConteiner">
+        <div class="bigNoteConteiner" v-for="div in divs" :key="div.id">
           <!-- //// -->
           <div class="popOverlay">
             <showPop v-if="showPopupp" />
@@ -26,7 +26,7 @@
               <li>
                 <span @click="openPop"> edit </span>
                 <span> add </span>
-                <span> delete </span>
+                <span @click="delDiv(div.id)"> delete </span>
                 <span @click="showPopupp = !showPopupp"> show </span>
               </li>
             </ul>
@@ -51,6 +51,8 @@ export default {
   },
   data() {
     return {
+      index: 0,
+      divs: [3],
       showPopupp: false,
       title: "tiltetil 1",
       desc: `decsaaaaaaaaaaaa aaaaa aa aaa aww aawa a a aw a sww `,
@@ -62,10 +64,16 @@ export default {
     openPop: () => {
       console.log("Edit : openPop btn has been clikced");
     },
-    // showPopuppFunc: () => {
-    //   showPopupp: false;
-    //   console.log("show : pop has been clikced");
-    // },
+    delDiv(index) {
+      this.divs.splice(index, 1);
+    },
+    addDiv() {
+      this.divs.push({
+        id: this.index,
+        name: "div" + this.index,
+      });
+      this.index++;
+    },
   },
 
   mounted: () => {
