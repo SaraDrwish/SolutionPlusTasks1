@@ -5,6 +5,12 @@
         <h2>Notes :</h2>
 
         <div class="bigNoteConteiner">
+          <!-- //// -->
+          <div class="popOverlay">
+            <showPop v-if="showPopupp" />
+          </div>
+          <!-- ////// -->
+
           <ul class="ul-head">
             <li>tilte</li>
             <li>decs</li>
@@ -13,10 +19,9 @@
           <ul class="ul-content">
             <li>tiltetil tetilte tilte</li>
             <li>
-              decs decsdecsdecsdec sdecsdecsdecsdecs
-              csdecsdecsdecsdecsdecsdecsdecsdecsdecsdecsdecs
-              decsdecsdecsdecsdecsdecsdecsdecs decsdecs decsdecsdecsdecsdecs
-              decsdecsdecsdecsdecsd ecsdecsdecs decsdecsdecsdecsdecsdecsdecs
+              decs decsdecsdecsdec sdecsdecsdecsdecs csdecsdecsdecsdecsds
+              decsdecs decsdecsdecsdecsdecs decsdecsdecsdecsdecsd ecsdecsdecs
+              decsdecsdecs
             </li>
             <li>complete : no</li>
           </ul>
@@ -24,8 +29,8 @@
             <li>
               <span @click="openPop"> edit </span>
               <span> add </span>
-              <span> delete </span>
-              <span> show </span>
+              <span @click="showPopupp = !showPopupp"> delete </span>
+              <span @click="showPopp"> show </span>
             </li>
           </ul>
         </div>
@@ -35,15 +40,29 @@
 </template>
 
 <script>
+import showPop from "./showPop.vue";
+// import { filters } from "../filters/shorten";
 export default {
   name: "NotesPage",
+  components: {
+    showPop,
+  },
   props: {
     msg: String,
+    showP: false,
+  },
+  data() {
+    return {
+      showPopupp: false,
+    };
   },
 
   methods: {
     openPop: () => {
-      console.log("openPop btn has been clikced");
+      console.log("Edit : openPop btn has been clikced");
+    },
+    showPopp: () => {
+      console.log("show : pop has been clikced");
     },
   },
 
@@ -73,6 +92,7 @@ ul {
   border-radius: 2rem;
 
   .bigNoteConteiner {
+    position: relative;
     width: 90%;
     text-transform: capitalize;
     margin: auto;
