@@ -25,6 +25,7 @@
             <ul class="ul-CRUD-ptns">
               <li>
                 <span @click="openPop"> edit </span>
+                <!-- <span @click="editdiv(index)"> edit </span> -->
                 <span @click="addDiv(div.id)"> add </span>
                 <span @click="delDiv(div.id)"> delete </span>
                 <span @click="showPopupp = !showPopupp"> show </span>
@@ -52,7 +53,8 @@ export default {
   data() {
     return {
       index: 0,
-      divs: [3],
+      divs: [1],
+      editdiv: null,
       showPopupp: false,
       title: "tiltetil 1",
       desc: `decsaaaaaaaaaaaa aaaaa aa aaa aww aawa a a aw a sww `,
@@ -70,9 +72,13 @@ export default {
     addDiv() {
       this.divs.push({
         id: this.index,
-        // name: "div" + this.index,
+        completed: false,
+        title: title,
       });
       this.index++;
+    },
+    editDiv(index) {
+      this.editdiv = index;
     },
   },
 
