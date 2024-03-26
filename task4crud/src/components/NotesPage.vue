@@ -1,8 +1,7 @@
 <template>
-  <div class="hello">
+  <div class="note">
     <div class="">
       <h1>{{ msg }}</h1>
-      <h3>crud notes using vuex and localStorage to save dat</h3>
     </div>
     <div class="container">
       <div class="noteBoxes">
@@ -49,7 +48,7 @@
 
 <script>
 export default {
-  name: "HelloWorld",
+  name: "NotesPage",
   props: {
     msg: String,
   },
