@@ -10,8 +10,8 @@ export default new Vuex.Store({
         id: 1,
         title: "test ",
         desc: "test eru11 ",
-        completed: false,
-        // completed: true ? " yes" : " no ",
+        // completed: false,
+        completed: true ? " yes" : " no ",
       },
     ],
   },
@@ -63,32 +63,29 @@ export default new Vuex.Store({
       console.log("sussecc dell");
     },
 
-    toglNote({ state }, id) {
-      // state.notesElmnts.forEach((e) => {
-      //   if (e.id == id) {
-      //     let cmplteStore = !state.notesElmnts.completed;
-      //     console.log(
-      //       "state.notesElmnts.completed stooredd :::: ",
-      //       state.notesElmnts.completed,
-      //       "cmplteStore",
-      //       cmplteStore
-      //     );
-      //     return cmplteStore;
-      // }
-      // });
-      // let cmplteStore = state.notesElmnts.filter(
-      let cmplteStore = state.notesElmnts.completed;
-      // (cmplteStore) => cmplteStore.id == id
-      // (cmplteStore) => cmplteStore.completed == completed
-      // !state.notesElmnts.completed
-      console.log(
-        " cmplte Store ::: ",
-        cmplteStore,
-        "!cmplteStore::",
-        !cmplteStore
-      );
-      return cmplteStore;
-    },
+    // toglNote({ state }, id) {
+    // state.notesElmnts.forEach((e) => {
+    //   if (e.id == id) {
+    //     let cmplteStore = !state.notesElmnts.completed;
+    //     console.log(
+    //       "state.notesElmnts.completed stooredd :::: ",
+    //       state.notesElmnts.completed,
+    //       "cmplteStore",
+    //       cmplteStore
+    //     );
+    //     return cmplteStore;
+    // }
+    // });
+    // ///////////////////////////////////////////
+    //   let cmplteStore = state.notesElmnts.completed;
+    //   console.log(
+    //     " cmplte Store ::: ",
+    //     cmplteStore,
+    //     "!cmplteStore::",
+    //     !cmplteStore
+    //   );
+    //   return cmplteStore;
+    // },
   },
   modules: {},
 });

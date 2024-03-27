@@ -57,7 +57,8 @@
                 <li>
                   <span @click="editNot(n.id)"> edit </span>
                   <span @click="deletNote(n.id)"> delete </span>
-                  <span @click="toggleComplete"> complete </span>
+                  <span> complete </span>
+                  <!-- <span @click="toggleCompleted(false)"> complete </span> -->
                 </li>
               </ul>
             </div>
@@ -72,13 +73,12 @@
 </template>
 
 <script>
-import { computed } from "vue";
 import { mapGetters } from "vuex";
 import shorten from "../filters/shorten";
 export default {
   data() {
     return {
-      toggleCompletedModl: false,
+      // toggleCompletedModl: false,
       addModel: false,
       UpdateModel: false,
       addUpdateData: {
@@ -109,6 +109,10 @@ export default {
         }
       });
     },
+    // toggleCompleted(i) {
+    //   let tgleVal = !this.addUpdateData.completed;
+    //   return tgleVal;
+    // },
     editNot(id) {
       this.UpdateModel = true;
       this.$store.dispatch("getNewnote", id).then((response) => {
@@ -133,30 +137,27 @@ export default {
         console.log("deleted sussess ....", response);
       });
     },
-    toggleComplete(id) {
-      this.$store.dispatch("toglNote", id).then((response) => {
-        if (response) {
-          this.addUpdateData.completed = !this.addUpdateData.completed;
-          // this.addUpdateData.completed = response[0].completed;
-          console.log(
-            "..toggle clicked response::",
-            response,
-            "..id:::",
-            id,
-            "..this.addUpdateData.completed ::",
-            this.addUpdateData.completed
-          );
-        }
-        // this.addUpdateData.completed = cmplteStore;
-        console.log(
-          "..no response::",
-          response,
-          " this.notes.cmplteStore",
-          this.notes.cmplteStore
-        );
-        // console.log("..no response::", response, "cmplteStore", cmplteStore);
-      });
-    },
+    // toggleComplete(id) {
+    //   this.$store.dispatch("toglNote", id).then((response) => {
+    //     if (response) {
+    //       this.addUpdateData.completed = !this.addUpdateData.completed;
+    //       console.log(
+    //         "..toggle clicked response::",
+    //         response,
+    //         "..id:::",
+    //         id,
+    //         "..this.addUpdateData.completed ::",
+    //         this.addUpdateData.completed
+    //       );
+    //     }
+    //     console.log(
+    //       "..no response::",
+    //       response,
+    //       " this.notes.cmplteStore",
+    //       this.notes.cmplteStore
+    //     );
+    //   });
+    // },
   },
 };
 </script>
