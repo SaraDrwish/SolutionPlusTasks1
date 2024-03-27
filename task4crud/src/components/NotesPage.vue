@@ -57,7 +57,7 @@
                 <li>
                   <span @click="editNot(n.id)"> edit </span>
                   <span @click="deletNote(n.id)"> delete </span>
-                  <span @click="toggleComplete(n.id)"> complete </span>
+                  <span @click="toggleComplete"> complete </span>
                 </li>
               </ul>
             </div>
@@ -72,12 +72,13 @@
 </template>
 
 <script>
+import { computed } from "vue";
 import { mapGetters } from "vuex";
 import shorten from "../filters/shorten";
 export default {
   data() {
     return {
-      toggleComplete: false,
+      toggleCompletedModl: false,
       addModel: false,
       UpdateModel: false,
       addUpdateData: {
@@ -103,7 +104,7 @@ export default {
             id: "",
             title: "",
             desc: " ",
-            completed: false ? " yes" : " no ",
+            completed: false,
           };
         }
       });
@@ -134,7 +135,26 @@ export default {
     },
     toggleComplete(id) {
       this.$store.dispatch("toglNote", id).then((response) => {
-        console.log("toggle sussess .", response);
+        if (response) {
+          this.addUpdateData.completed = !this.addUpdateData.completed;
+          // this.addUpdateData.completed = response[0].completed;
+          console.log(
+            "..toggle clicked response::",
+            response,
+            "..id:::",
+            id,
+            "..this.addUpdateData.completed ::",
+            this.addUpdateData.completed
+          );
+        }
+        // this.addUpdateData.completed = cmplteStore;
+        console.log(
+          "..no response::",
+          response,
+          " this.notes.cmplteStore",
+          this.notes.cmplteStore
+        );
+        // console.log("..no response::", response, "cmplteStore", cmplteStore);
       });
     },
   },
