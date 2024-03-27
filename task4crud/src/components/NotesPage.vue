@@ -58,7 +58,6 @@
                   <span @click="editNot(n.id)"> edit </span>
                   <span @click="deletNote(n.id)"> delete </span>
                   <span> complete </span>
-                  <!-- <span @click="toggleCompleted(false)"> complete </span> -->
                 </li>
               </ul>
             </div>
@@ -78,7 +77,6 @@ import shorten from "../filters/shorten";
 export default {
   data() {
     return {
-      // toggleCompletedModl: false,
       addModel: false,
       UpdateModel: false,
       addUpdateData: {
@@ -109,10 +107,7 @@ export default {
         }
       });
     },
-    // toggleCompleted(i) {
-    //   let tgleVal = !this.addUpdateData.completed;
-    //   return tgleVal;
-    // },
+
     editNot(id) {
       this.UpdateModel = true;
       this.$store.dispatch("getNewnote", id).then((response) => {
@@ -137,27 +132,6 @@ export default {
         console.log("deleted sussess ....", response);
       });
     },
-    // toggleComplete(id) {
-    //   this.$store.dispatch("toglNote", id).then((response) => {
-    //     if (response) {
-    //       this.addUpdateData.completed = !this.addUpdateData.completed;
-    //       console.log(
-    //         "..toggle clicked response::",
-    //         response,
-    //         "..id:::",
-    //         id,
-    //         "..this.addUpdateData.completed ::",
-    //         this.addUpdateData.completed
-    //       );
-    //     }
-    //     console.log(
-    //       "..no response::",
-    //       response,
-    //       " this.notes.cmplteStore",
-    //       this.notes.cmplteStore
-    //     );
-    //   });
-    // },
   },
 };
 </script>

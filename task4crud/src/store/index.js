@@ -10,8 +10,7 @@ export default new Vuex.Store({
         id: 1,
         title: "test ",
         desc: "test eru11 ",
-        // completed: false,
-        completed: true ? " yes" : " no ",
+        completed: false,
       },
     ],
   },
@@ -47,7 +46,7 @@ export default new Vuex.Store({
       state.notesElmnts.forEach((el) => {
         console.log(notaManipyol);
         if (el.id == notaManipyol.id) {
-          commit("update Note Stored", notaManipyol);
+          commit("updateNoteStored", notaManipyol);
         }
       });
       console.log("******updateNoteStored success******");
@@ -62,30 +61,6 @@ export default new Vuex.Store({
       });
       console.log("sussecc dell");
     },
-
-    // toglNote({ state }, id) {
-    // state.notesElmnts.forEach((e) => {
-    //   if (e.id == id) {
-    //     let cmplteStore = !state.notesElmnts.completed;
-    //     console.log(
-    //       "state.notesElmnts.completed stooredd :::: ",
-    //       state.notesElmnts.completed,
-    //       "cmplteStore",
-    //       cmplteStore
-    //     );
-    //     return cmplteStore;
-    // }
-    // });
-    // ///////////////////////////////////////////
-    //   let cmplteStore = state.notesElmnts.completed;
-    //   console.log(
-    //     " cmplte Store ::: ",
-    //     cmplteStore,
-    //     "!cmplteStore::",
-    //     !cmplteStore
-    //   );
-    //   return cmplteStore;
-    // },
   },
   modules: {},
 });
