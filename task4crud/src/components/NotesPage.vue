@@ -3,8 +3,13 @@
     <div class="container">
       <div class="noteBoxes">
         <h2>Notes :</h2>
-        <span @click="addDiv(div.id)"> add </span>
-        <div class="addpopupOverlay">
+        <!-- <div @click="addModel = true"> -->
+        <span @click="addModel = true">add</span>
+        <!-- </div> -->
+        <!-- <span @click="addDiv(div.id)" > add </span> -->
+        <!-- ///////////////////////////// -->
+        <div class="addcontainer" v-show="addModel">
+          <div class="addpopupOverlay" @click="addModel = false"></div>
           <div class="appPopContainer">
             <p>add new note</p>
             <div class="">
@@ -16,6 +21,7 @@
             <button>create</button>
           </div>
         </div>
+        <!-- ////////////////////////// -->
 
         <div class="bigNoteConteiner" v-for="div in divs" :key="div.id">
           <!-- //// -->
@@ -66,6 +72,7 @@ export default {
   },
   data() {
     return {
+      addModel: false,
       index: 0,
       divs: [1],
       editdiv: null,
@@ -130,19 +137,34 @@ ul {
     text-align: center;
     border-radius: 0.4rem;
   }
-  .addpopupOverlay {
-    background: rgba(80, 63, 63, 0.9);
+  .addcontainer {
+    position: absolute;
+    // position: relative;
+    left: -2rem;
+    margin: auto;
     width: 100%;
     height: 100%;
-    position: absolute;
-    z-index: 11;
-    left: 0;
+    // background: red;
     padding: 1rem;
-    margin: auto;
+    .addpopupOverlay {
+      background: rgba(44, 77, 95, 0.945);
+      width: 100%;
+      height: 100%;
+      position: relative;
+      // position: absolute;
+      z-index: 11;
+      left: 0;
+      padding: 1rem;
+      margin: auto;
+    }
 
     .appPopContainer {
+      position: absolute;
+      z-index: 111;
+      left: 25%;
+      top: 15%;
       width: 50%;
-      margin: 4rem auto;
+      margin: 2rem auto;
       padding: 1rem;
       text-align: center;
       background: lightblue;
