@@ -17,13 +17,21 @@ export default new Vuex.Store({
   getters: {
     notes: (state) => state.notesElmnts,
   },
-  mutations: {},
+  mutations: {
+    updateNote(state, data) {
+      state.notesElmnts.forEach((data) => {
+        if (data.id == notaManipyol.id) {
+          data = notaManipyol;
+        }
+      });
+    },
+  },
   actions: {
-    addNew({ state }, notadded) {
+    addNew({ state }, notaManipyol) {
       let id = state.notesElmnts.length + 1;
       //reset the id
-      notadded.id = id;
-      state.notesElmnts.push(notadded);
+      notaManipyol.id = id;
+      state.notesElmnts.push(notaManipyol);
     },
 
     getNewnote({ state }, id) {
@@ -31,7 +39,14 @@ export default new Vuex.Store({
       console.log(notData);
       return notData;
     },
-    // updateNote({state} , data)
+    updateNote({ state }, notaManipyol) {
+      state.notesElmnts.forEach((el) => {
+        console.log(notaManipyol);
+        if (el == notaManipyol.id) {
+          this.commit("updateNote", notaManipyol);
+        }
+      });
+    },
   },
   modules: {},
 });
