@@ -3,22 +3,21 @@
     <div class="container">
       <div class="noteBoxes">
         <h2>Notes :</h2>
-        <!-- <div @click="addModel = true"> -->
         <span @click="addModel = true">add</span>
-        <!-- </div> -->
-        <!-- <span @click="addDiv(div.id)" > add </span> -->
         <!-- ///////////////////////////// -->
+        {{ notes }}
         <div class="addcontainer" v-show="addModel">
           <div class="addpopupOverlay" @click="addModel = false"></div>
           <div class="appPopContainer">
             <p>add new note</p>
             <div class="">
+              <!-- <lable v-model="addUpdateData.id"> </lable> -->
               <label>title:</label>
-              <input type="text" />
+              <input type="text" v-model="addUpdateData.title" />
               <label>description:</label>
-              <input type="text" />
+              <input type="text" v-model="addUpdateData.desc" />
             </div>
-            <button>create</button>
+            <button @click="addNewNot">create</button>
           </div>
         </div>
         <!-- ////////////////////////// -->
@@ -32,12 +31,14 @@
           <!-- ////// -->
 
           <ul class="ul-head">
+            <li>number</li>
             <li>tilte</li>
             <li>decs</li>
             <li>complete</li>
           </ul>
           <ul class="ul-content" v-for="data in notes" :key="data.id">
-            <h3>{{ data.id }}</h3>
+            <!-- <h3>id: {{ data.id }}</h3> -->
+            <li>id: {{ data.id }}</li>
             <li>title : {{ data.title }}</li>
             <li>desc : {{ data.desc | shorten }}</li>
             <li>complete : {{ data.completed }}</li>
@@ -77,9 +78,13 @@ export default {
       divs: [1],
       editdiv: null,
       showPopupp: false,
-      title: "tiltetil 1",
-      desc: `decsaaaaaaaaaaaa aaaaa aa aaa aww aawa a a aw a sww `,
-      completed: false ? " yes" : " no ",
+      // completed: false ? " yes" : " no ",
+      addUpdateData: {
+        id: "",
+        title: "",
+        desc: " ",
+        completed: false ? " yes" : " no ",
+      },
     };
   },
 
@@ -94,6 +99,9 @@ export default {
         title: title,
       });
       this.index++;
+    },
+    addNewNot() {
+      this.$store.dispatch("addNew", this.addUpdateData);
     },
   },
   computed: {

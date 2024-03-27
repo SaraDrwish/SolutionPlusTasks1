@@ -10,7 +10,8 @@ export default new Vuex.Store({
         id: 1,
         title: "title test",
         desc: "decs a s a r a a a ssss ssss ssssssssss sssssssssssss",
-        completed: false,
+        // completed: false,
+        completed: false ? " yes" : " no ",
       },
       // {
       //   id: 2,
@@ -24,6 +25,12 @@ export default new Vuex.Store({
     notes: (state) => state.notesElmnts,
   },
   mutations: {},
-  actions: {},
+  actions: {
+    addNew({ state }, notadded) {
+      let id = state.notesElmnts.length + 1;
+      notadded.id = id;
+      state.notesElmnts.push(notadded);
+    },
+  },
   modules: {},
 });
