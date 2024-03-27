@@ -5,7 +5,7 @@
         <h2>Notes :</h2>
         <span @click="addModel = true">add</span>
         <!-- ///////////////////////////// -->
-        <!-- {{ notes }} -->
+        {{ notes }}
         <!-- ////////////////ADD Note POPUP Start///////////////// -->
         <div class="addcontainer" v-show="addModel">
           <div class="addpopupOverlay" @click="addModel = false"></div>
@@ -36,18 +36,19 @@
               <label>description:</label>
               <input type="text" v-model="addUpdateData.desc" />
             </div>
+            <!-- <button @click="updateNote">Update</button> -->
             <button>Update</button>
           </div>
         </div>
         <!-- ////////////////UPDATE Note POPUP END///////////////// -->
 
         <!-- ////////////////////////// -->
-        <div class="bigNoteConteiner" v-for="div in divs" :key="div.id">
+        <div class="bigNoteConteiner">
+          <!-- <div class="bigNoteConteiner" v-for="div in divs" :key="div.id"> -->
           <!-- //// -->
-          <div class="popOverlay">
+          <!-- <div class="popOverlay">
             <showPop v-if="showPopupp" />
-          </div>
-
+          </div> -->
           <!-- ////// -->
 
           <ul class="ul-head">
@@ -57,16 +58,16 @@
             <li>complete</li>
             <li>options</li>
           </ul>
-          <ul class="ul-content" v-for="data in notes" :key="data.id">
+          <ul class="ul-content" v-for="nt in notes" :key="nt.id">
             <!-- <h3>id: {{ data.id }}</h3> -->
-            <li>id: {{ data.id }}</li>
-            <li>title : {{ data.title }}</li>
-            <li>desc : {{ data.desc | shorten }}</li>
-            <li>complete : {{ data.completed }}</li>
+            <li>id: {{ nt.id }}</li>
+            <li>title : {{ nt.title }}</li>
+            <li>desc : {{ nt.desc | shorten }}</li>
+            <li>complete : {{ nt.completed }}</li>
             <div class="btns-box-container">
               <ul class="ul-CRUD-ptns">
                 <li>
-                  <span> edit </span>
+                  <span @click="editNot(nt.id)"> edit </span>
                   <span> delete </span>
                   <span> show </span>
                 </li>
@@ -106,35 +107,48 @@ export default {
   data() {
     return {
       addModel: false,
-      UpdateModel: true,
-      index: 0,
-      divs: [1],
-      editdiv: null,
+      UpdateModel: false,
+      // index: 0,
+      // divs: [1],
+      // editdiv: null,
       showPopupp: false,
       // completed: false ? " yes" : " no ",
       addUpdateData: {
         id: "",
         title: "",
         desc: " ",
-        completed: false ? " yes" : " no ",
+        // completed: false ? " yes" : " no ",
+        completed: false,
       },
     };
   },
 
   methods: {
-    delDiv(index) {
-      this.divs.splice(index, 1);
-    },
-    addDiv() {
-      this.divs.push({
-        id: this.index,
-        completed: false,
-        title: title,
-      });
-      this.index++;
-    },
+    // delDiv(index) {
+    //   this.divs.splice(index, 1);
+    // },
+    // addDiv() {
+    //   this.divs.push({
+    //     id: this.index,
+    //     completed: false,
+    //     title: title,
+    //   });
+    //   this.index++;
+    // },
     addNewNot() {
       this.$store.dispatch("addNew", this.addUpdateData);
+    },
+    editNot(id) {
+      this.UpdateModel = true;
+      this.$store.dispatch("getNewnote", id).then((res) => {
+        this.addUpdateData.id = res[0].id;
+        this.addUpdateData.title = res[0].title;
+        this.addUpdateData.desc = res[0].desc;
+        console.log(res);
+      });
+    },
+    updateNot() {
+      this.$store.dispatch("updateNote", this.addUpdateData);
     },
   },
   computed: {
@@ -173,26 +187,23 @@ ul {
     padding: 0.4rem;
     transition: all 0.4s ease-in;
     border: 1px solid rgb(181, 203, 204);
-    background-color: orange;
+    background-color: rgb(237, 218, 222);
     margin: 0.4rem auto;
     text-align: center;
     border-radius: 0.2rem;
   }
   .addcontainer {
     position: absolute;
-    // position: relative;
     left: -2rem;
     margin: auto;
     width: 100%;
     height: 100%;
-    // background: red;
     padding: 1rem;
     .addpopupOverlay {
       background: rgba(44, 77, 95, 0.945);
       width: 100%;
       height: 100%;
       position: relative;
-      // position: absolute;
       z-index: 11;
       left: 0;
       padding: 1rem;
@@ -259,7 +270,6 @@ ul {
     }
   }
   .ul-CRUD-ptns {
-    // background: red;
     width: 80%;
     margin-left: auto;
 
@@ -273,15 +283,8 @@ ul {
       justify-content: space-evenly;
     }
     span {
-      // cursor: pointer;
-      // color: rgb(23, 46, 47);
-      // font-weight: 500;
-      // padding: 0.8rem;
       transition: all 0.4s ease-in;
-      // border: 1px solid rgb(181, 203, 204);
-      // background-color: rgb(255, 177, 143);
       margin: 0.4rem;
-      // border-radius: 0.4rem;
     }
     :hover {
       color: rgb(124, 154, 144);

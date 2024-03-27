@@ -9,16 +9,9 @@ export default new Vuex.Store({
       {
         id: 1,
         title: "title test",
-        desc: "decs a s a r a a a ssss ssss ssssssssss sssssssssssss",
-        // completed: false,
-        completed: false ? " yes" : " no ",
+        desc: "decs ssss ssssssssss sssssssssssss",
+        completed: false,
       },
-      // {
-      //   id: 2,
-      //   title: "titl2e test",
-      //   desc: "decs 2ss ssss ssssssssss sssssssssssss",
-      //   completed: false,
-      // },
     ],
   },
   getters: {
@@ -32,6 +25,13 @@ export default new Vuex.Store({
       notadded.id = id;
       state.notesElmnts.push(notadded);
     },
+
+    getNewnote({ state }, id) {
+      let notData = state.notesElmnts.filter((notData) => notData.id == id);
+      console.log(notData);
+      return notData;
+    },
+    // updateNote({state} , data)
   },
   modules: {},
 });
