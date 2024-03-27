@@ -1,4 +1,8 @@
 import Vue from "vue";
 Vue.filter("shorten", (inp) => {
-  return inp.substring(0, 33) + " ....";
+  if (inp.length > 20) {
+    return inp.substring(0, 20) + "...";
+  } else {
+    return inp;
+  }
 });

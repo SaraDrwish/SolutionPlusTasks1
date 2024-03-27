@@ -8,9 +8,9 @@ export default new Vuex.Store({
     notesElmnts: [
       {
         id: 1,
-        title: "title test",
-        desc: "decs ssss ssssssssss sssssssssssss",
-        completed: false,
+        title: "test ",
+        desc: "test eru 1111111 ",
+        completed: false ? " yes" : " no ",
       },
     ],
   },
@@ -35,15 +35,18 @@ export default new Vuex.Store({
     },
 
     getNewnote({ state }, id) {
+      console.log("the not daata is ::::::: ", notData);
+
       let notData = state.notesElmnts.filter((notData) => notData.id == id);
-      console.log(notData);
+      console.log("the not daata is ::::::: ", notData);
       return notData;
     },
-    updateNote({ state }, notaManipyol) {
+
+    updateNoteStored({ commit, state }, notaManipyol) {
       state.notesElmnts.forEach((el) => {
         console.log(notaManipyol);
-        if (el == notaManipyol.id) {
-          this.commit("updateNote", notaManipyol);
+        if (el.id == notaManipyol.id) {
+          commit("updateNoteStored", notaManipyol);
         }
       });
     },

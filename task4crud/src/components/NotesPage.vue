@@ -12,7 +12,6 @@
           <div class="appPopContainer">
             <p>add new note</p>
             <div class="">
-              <!-- <lable v-model="addUpdateData.id"> </lable> -->
               <label>title:</label>
               <input type="text" v-model="addUpdateData.title" />
               <label>description:</label>
@@ -23,7 +22,6 @@
         </div>
         <!-- ////////////////ADD Note POPUP END///////////////// -->
 
-        <!-- ////////////////////////// -->
         <!-- ////////////////UPDATE Note POPUP START///////////////// -->
 
         <div class="addcontainer" v-show="UpdateModel">
@@ -36,55 +34,37 @@
               <label>description:</label>
               <input type="text" v-model="addUpdateData.desc" />
             </div>
-            <button @click="updateNot">Update</button>
-            <!-- <button>Update</button> -->
+            <button @click="updateNote">Update</button>
           </div>
         </div>
         <!-- ////////////////UPDATE Note POPUP END///////////////// -->
 
-        <!-- ////////////////////////// -->
         <div class="bigNoteConteiner">
-          <!-- <div class="bigNoteConteiner" v-for="div in divs" :key="div.id"> -->
-          <!-- //// -->
-          <!-- <div class="popOverlay">
-            <showPop v-if="showPopupp" />
-          </div> -->
-          <!-- ////// -->
-
           <ul class="ul-head">
             <li>number</li>
             <li>tilte</li>
-            <li>decs</li>
-            <li>complete</li>
+            <li>description</li>
+            <li>completed</li>
             <li>options</li>
           </ul>
-          <ul class="ul-content" v-for="nt in notes" :key="nt.id">
-            <!-- <h3>id: {{ data.id }}</h3> -->
-            <li>id: {{ nt.id }}</li>
-            <li>title : {{ nt.title }}</li>
-            <li>desc : {{ nt.desc | shorten }}</li>
-            <li>complete : {{ nt.completed }}</li>
+          <ul class="ul-content" v-for="n in notes" :key="n.id">
+            <li>id: {{ n.id }}</li>
+            <li>title : {{ n.title | shorten }}</li>
+            <li>desc : {{ n.desc | shorten }}</li>
+            <!-- <li>desc : {{ data.desc }}</li> -->
+            <li>{{ n.completed }}</li>
             <div class="btns-box-container">
               <ul class="ul-CRUD-ptns">
                 <li>
-                  <span @click="editNot(nt.id)"> edit </span>
+                  <span @click="editNot(n.id)"> edit </span>
                   <span> delete </span>
-                  <span> show </span>
+                  <span> complete </span>
                 </li>
               </ul>
             </div>
           </ul>
 
           <!-- -------- -->
-          <!-- <div class="btns-box-container">
-            <ul class="ul-CRUD-ptns">
-              <li>
-                <span> edit </span>
-                <span @click="delDiv(div.id)"> delete </span>
-                <span @click="showPopupp = !showPopupp"> show </span>
-              </li>
-            </ul>
-          </div> -->
         </div>
         <!-- ----- -->
       </div>
@@ -101,54 +81,37 @@ export default {
   components: {
     showPop,
   },
-  props: {
-    msg: String,
-  },
+
   data() {
     return {
       addModel: false,
       UpdateModel: false,
-      // index: 0,
-      // divs: [1],
-      // editdiv: null,
       showPopupp: false,
-      // completed: false ? " yes" : " no ",
+      completed: false ? " yes" : " no ",
       addUpdateData: {
         id: "",
         title: "",
         desc: " ",
-        // completed: false ? " yes" : " no ",
-        completed: false,
+        completed: false ? " yes" : " no ",
       },
     };
   },
 
   methods: {
-    // delDiv(index) {
-    //   this.divs.splice(index, 1);
-    // },
-    // addDiv() {
-    //   this.divs.push({
-    //     id: this.index,
-    //     completed: false,
-    //     title: title,
-    //   });
-    //   this.index++;
-    // },
     addNewNot() {
       this.$store.dispatch("addNew", this.addUpdateData);
     },
     editNot(id) {
       this.UpdateModel = true;
-      this.$store.dispatch("getNewnote", id).then((res) => {
-        this.addUpdateData.id = res[0].id;
-        this.addUpdateData.title = res[0].title;
-        this.addUpdateData.desc = res[0].desc;
-        console.log(res);
+      this.$store.dispatch("getNewnote", id).then((response) => {
+        this.addUpdateData.id = response[0].id;
+        this.addUpdateData.title = response[0].title;
+        this.addUpdateData.desc = response[0].desc;
+        console.log("response......", response);
       });
     },
-    updateNot() {
-      this.$store.dispatch("updateNote", this.addUpdateData);
+    updateNote() {
+      this.$store.dispatch("updateNoteStored", this.addUpdateData);
     },
   },
   computed: {
@@ -158,7 +121,7 @@ export default {
   },
 };
 </script>
-
+<!-- ///////////////////////////////////////////////////////////////////// -->
 <style scoped lang="scss">
 ul {
   display: flex;
@@ -239,7 +202,7 @@ ul {
         border-radius: 1rem;
       }
       div {
-        width: 80%;
+        width: 70%;
         margin: auto;
         display: flex;
         gap: 1rem;
@@ -270,7 +233,7 @@ ul {
     }
   }
   .ul-CRUD-ptns {
-    width: 80%;
+    width: 70%;
     margin-left: auto;
 
     li {

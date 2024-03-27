@@ -1,7 +1,6 @@
 <template>
   <div class="NotesPageRoute">
-    <!-- <h2>NotesPageRoute</h2> -->
-    <NotesPage msg="Welcome to Your The Task 4 of week 4 " />
+    <NotesPage />
   </div>
 </template>
 
