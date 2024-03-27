@@ -3,12 +3,26 @@
     <div class="container">
       <div class="noteBoxes">
         <h2>Notes :</h2>
+        <span @click="addDiv(div.id)"> add </span>
+        <div class="addpopupOverlay">
+          <div class="appPopContainer">
+            <p>add new note</p>
+            <div class="">
+              <label>title:</label>
+              <input type="text" />
+              <label>description:</label>
+              <input type="text" />
+            </div>
+            <button>create</button>
+          </div>
+        </div>
 
         <div class="bigNoteConteiner" v-for="div in divs" :key="div.id">
           <!-- //// -->
           <div class="popOverlay">
             <showPop v-if="showPopupp" />
           </div>
+
           <!-- ////// -->
 
           <ul class="ul-head">
@@ -16,17 +30,16 @@
             <li>decs</li>
             <li>complete</li>
           </ul>
-          <ul class="ul-content">
-            <li>title : {{ title }}</li>
-            <li>desc : {{ desc | shorten }}</li>
-            <li>complete : {{ completed }}</li>
+          <ul class="ul-content" v-for="data in notes" :key="data.id">
+            <h3>{{ data.id }}</h3>
+            <li>title : {{ data.title }}</li>
+            <li>desc : {{ data.desc | shorten }}</li>
+            <li>complete : {{ data.completed }}</li>
           </ul>
           <div class="btns-box-container">
             <ul class="ul-CRUD-ptns">
               <li>
-                <span @click="openPop"> edit </span>
-                <!-- <span @click="editdiv(index)"> edit </span> -->
-                <span @click="addDiv(div.id)"> add </span>
+                <span> edit </span>
                 <span @click="delDiv(div.id)"> delete </span>
                 <span @click="showPopupp = !showPopupp"> show </span>
               </li>
@@ -42,6 +55,7 @@
 <script>
 import showPop from "./showPop.vue";
 import shorten from "../filters/shorten";
+import { mapGetters } from "vuex";
 export default {
   name: "NotesPage",
   components: {
@@ -63,9 +77,6 @@ export default {
   },
 
   methods: {
-    openPop: () => {
-      console.log("Edit : openPop btn has been clikced");
-    },
     delDiv(index) {
       this.divs.splice(index, 1);
     },
@@ -77,13 +88,11 @@ export default {
       });
       this.index++;
     },
-    editDiv(index) {
-      this.editdiv = index;
-    },
   },
-
-  mounted: () => {
-    console.log("mounted log");
+  computed: {
+    ...mapGetters({
+      notes: "notes",
+    }),
   },
 };
 </script>
@@ -95,6 +104,8 @@ ul {
 }
 
 .noteBoxes {
+  text-transform: capitalize;
+  position: relative;
   width: 90%;
   font-size: 22px;
   display: flex;
@@ -106,11 +117,71 @@ ul {
   padding: 2rem 1rem;
   color: rgb(226, 198, 209);
   border-radius: 2rem;
+  span {
+    width: 80%;
+    cursor: pointer;
+    color: rgb(23, 46, 47);
+    font-weight: 500;
+    padding: 0.8rem;
+    transition: all 0.4s ease-in;
+    border: 1px solid rgb(181, 203, 204);
+    background-color: rgb(255, 177, 143);
+    margin: 0.4rem auto;
+    text-align: center;
+    border-radius: 0.4rem;
+  }
+  .addpopupOverlay {
+    background: rgba(80, 63, 63, 0.9);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 11;
+    left: 0;
+    padding: 1rem;
+    margin: auto;
+
+    .appPopContainer {
+      width: 50%;
+      margin: 4rem auto;
+      padding: 1rem;
+      text-align: center;
+      background: lightblue;
+      border-radius: 1rem;
+      color: darkslategray;
+      font-size: 25px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      p {
+        color: palevioletred;
+      }
+      button {
+        border: none;
+        padding: 1rem;
+        outline: none;
+        margin: 1rem;
+        cursor: pointer;
+        background: palevioletred;
+        border-radius: 1rem;
+      }
+      div {
+        width: 80%;
+        margin: auto;
+        display: flex;
+        gap: 1rem;
+        flex-direction: column;
+        input {
+          border: none;
+          padding: 1rem;
+          outline: none;
+        }
+      }
+    }
+  }
 
   .bigNoteConteiner {
     position: relative;
     width: 90%;
-    text-transform: capitalize;
     margin: 1rem auto;
     padding: 2rem 1rem;
     background-color: rgb(194, 157, 170);
@@ -134,15 +205,15 @@ ul {
       justify-content: space-evenly;
     }
     span {
-      cursor: pointer;
-      color: rgb(23, 46, 47);
-      font-weight: 500;
-      padding: 0.8rem;
+      // cursor: pointer;
+      // color: rgb(23, 46, 47);
+      // font-weight: 500;
+      // padding: 0.8rem;
       transition: all 0.4s ease-in;
-      border: 1px solid rgb(181, 203, 204);
-      background-color: rgb(255, 177, 143);
+      // border: 1px solid rgb(181, 203, 204);
+      // background-color: rgb(255, 177, 143);
       margin: 0.4rem;
-      border-radius: 0.4rem;
+      // border-radius: 0.4rem;
     }
     :hover {
       color: rgb(124, 154, 144);

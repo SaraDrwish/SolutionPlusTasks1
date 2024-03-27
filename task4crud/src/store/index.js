@@ -5,11 +5,24 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    title: "title",
-    desc: "decs sssssssssssssssssssssssssssssss",
-    completed: false,
+    notesElmnts: [
+      {
+        id: 1,
+        title: "title test",
+        desc: "decs a s a r a a a ssss ssss ssssssssss sssssssssssss",
+        completed: false,
+      },
+      // {
+      //   id: 2,
+      //   title: "titl2e test",
+      //   desc: "decs 2ss ssss ssssssssss sssssssssssss",
+      //   completed: false,
+      // },
+    ],
   },
-  getters: {},
+  getters: {
+    notes: (state) => state.notesElmnts,
+  },
   mutations: {},
   actions: {},
   modules: {},
