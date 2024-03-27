@@ -5,7 +5,8 @@
         <h2>Notes :</h2>
         <span @click="addModel = true">add</span>
         <!-- ///////////////////////////// -->
-        {{ notes }}
+        <!-- {{ notes }} -->
+        <!-- ////////////////ADD Note POPUP Start///////////////// -->
         <div class="addcontainer" v-show="addModel">
           <div class="addpopupOverlay" @click="addModel = false"></div>
           <div class="appPopContainer">
@@ -20,8 +21,27 @@
             <button @click="addNewNot">create</button>
           </div>
         </div>
-        <!-- ////////////////////////// -->
+        <!-- ////////////////ADD Note POPUP END///////////////// -->
 
+        <!-- ////////////////////////// -->
+        <!-- ////////////////UPDATE Note POPUP START///////////////// -->
+
+        <div class="addcontainer" v-show="UpdateModel">
+          <div class="addpopupOverlay" @click="UpdateModel = false"></div>
+          <div class="appPopContainer">
+            <p>Update the note</p>
+            <div class="">
+              <label>title:</label>
+              <input type="text" v-model="addUpdateData.title" />
+              <label>description:</label>
+              <input type="text" v-model="addUpdateData.desc" />
+            </div>
+            <button>Update</button>
+          </div>
+        </div>
+        <!-- ////////////////UPDATE Note POPUP END///////////////// -->
+
+        <!-- ////////////////////////// -->
         <div class="bigNoteConteiner" v-for="div in divs" :key="div.id">
           <!-- //// -->
           <div class="popOverlay">
@@ -35,6 +55,7 @@
             <li>tilte</li>
             <li>decs</li>
             <li>complete</li>
+            <li>options</li>
           </ul>
           <ul class="ul-content" v-for="data in notes" :key="data.id">
             <!-- <h3>id: {{ data.id }}</h3> -->
@@ -42,8 +63,19 @@
             <li>title : {{ data.title }}</li>
             <li>desc : {{ data.desc | shorten }}</li>
             <li>complete : {{ data.completed }}</li>
+            <div class="btns-box-container">
+              <ul class="ul-CRUD-ptns">
+                <li>
+                  <span> edit </span>
+                  <span> delete </span>
+                  <span> show </span>
+                </li>
+              </ul>
+            </div>
           </ul>
-          <div class="btns-box-container">
+
+          <!-- -------- -->
+          <!-- <div class="btns-box-container">
             <ul class="ul-CRUD-ptns">
               <li>
                 <span> edit </span>
@@ -51,7 +83,7 @@
                 <span @click="showPopupp = !showPopupp"> show </span>
               </li>
             </ul>
-          </div>
+          </div> -->
         </div>
         <!-- ----- -->
       </div>
@@ -74,6 +106,7 @@ export default {
   data() {
     return {
       addModel: false,
+      UpdateModel: true,
       index: 0,
       divs: [1],
       editdiv: null,
@@ -137,13 +170,13 @@ ul {
     cursor: pointer;
     color: rgb(23, 46, 47);
     font-weight: 500;
-    padding: 0.8rem;
+    padding: 0.4rem;
     transition: all 0.4s ease-in;
     border: 1px solid rgb(181, 203, 204);
-    background-color: rgb(255, 177, 143);
+    background-color: orange;
     margin: 0.4rem auto;
     text-align: center;
-    border-radius: 0.4rem;
+    border-radius: 0.2rem;
   }
   .addcontainer {
     position: absolute;
@@ -226,8 +259,13 @@ ul {
     }
   }
   .ul-CRUD-ptns {
+    // background: red;
+    width: 80%;
+    margin-left: auto;
+
     li {
-      width: 40%;
+      font-size: 16px;
+      width: 80%;
       display: flex;
       margin: auto;
       border-radius: 0.4rem;

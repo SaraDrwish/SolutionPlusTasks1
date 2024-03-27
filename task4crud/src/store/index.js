@@ -28,6 +28,7 @@ export default new Vuex.Store({
   actions: {
     addNew({ state }, notadded) {
       let id = state.notesElmnts.length + 1;
+      //reset the id
       notadded.id = id;
       state.notesElmnts.push(notadded);
     },
