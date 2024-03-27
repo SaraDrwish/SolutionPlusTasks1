@@ -49,18 +49,15 @@
           </ul>
           <ul class="ul-content" v-for="n in notes" :key="n.id">
             <li>id: {{ n.id }}</li>
-            <li>title : {{ n.title }}</li>
-            <!-- <li>title : {{ n.title | shorten }}</li> -->
-            <li>desc : {{ n.desc }}</li>
-            <!-- <li>desc : {{ n.desc | shorten }}</li> -->
-            <!-- <li>desc : {{ data.desc }}</li> -->
+            <li>title : {{ n.title | shorten }}</li>
+            <li>desc : {{ n.desc | shorten }}</li>
             <li>{{ n.completed }}</li>
             <div class="btns-box-container">
               <ul class="ul-CRUD-ptns">
                 <li>
                   <span @click="editNot(n.id)"> edit </span>
                   <span @click="deletNote(n.id)"> delete </span>
-                  <span> complete </span>
+                  <span @click="toggleComplete(n.id)"> complete </span>
                 </li>
               </ul>
             </div>
@@ -76,16 +73,18 @@
 
 <script>
 import { mapGetters } from "vuex";
+import shorten from "../filters/shorten";
 export default {
   data() {
     return {
+      toggleComplete: false,
       addModel: false,
       UpdateModel: false,
       addUpdateData: {
         id: "",
         title: "",
         desc: " ",
-        completed: false ? " yes" : " no ",
+        completed: false,
       },
     };
   },
@@ -130,7 +129,12 @@ export default {
     deletNote(id) {
       this.$store.dispatch("delnote", id).then((response) => {
         alert("deleted ");
-        console.log("deleted sussess......", response);
+        console.log("deleted sussess ....", response);
+      });
+    },
+    toggleComplete(id) {
+      this.$store.dispatch("toglNote", id).then((response) => {
+        console.log("toggle sussess .", response);
       });
     },
   },
