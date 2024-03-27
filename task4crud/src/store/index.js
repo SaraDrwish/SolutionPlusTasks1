@@ -18,10 +18,10 @@ export default new Vuex.Store({
     notes: (state) => state.notesElmnts,
   },
   mutations: {
-    updateNote(state, data) {
-      state.notesElmnts.forEach((data) => {
+    updateNote(state, notaManipyol) {
+      state.notesElmnts.forEach((data, i) => {
         if (data.id == notaManipyol.id) {
-          data = notaManipyol;
+          state.notesElmnts[i] = notaManipyol;
         }
       });
     },

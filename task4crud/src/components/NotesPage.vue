@@ -36,8 +36,8 @@
               <label>description:</label>
               <input type="text" v-model="addUpdateData.desc" />
             </div>
-            <!-- <button @click="updateNote">Update</button> -->
-            <button>Update</button>
+            <button @click="updateNot">Update</button>
+            <!-- <button>Update</button> -->
           </div>
         </div>
         <!-- ////////////////UPDATE Note POPUP END///////////////// -->
