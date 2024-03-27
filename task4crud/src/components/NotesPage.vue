@@ -49,15 +49,17 @@
           </ul>
           <ul class="ul-content" v-for="n in notes" :key="n.id">
             <li>id: {{ n.id }}</li>
-            <li>title : {{ n.title | shorten }}</li>
-            <li>desc : {{ n.desc | shorten }}</li>
+            <li>title : {{ n.title }}</li>
+            <!-- <li>title : {{ n.title | shorten }}</li> -->
+            <li>desc : {{ n.desc }}</li>
+            <!-- <li>desc : {{ n.desc | shorten }}</li> -->
             <!-- <li>desc : {{ data.desc }}</li> -->
             <li>{{ n.completed }}</li>
             <div class="btns-box-container">
               <ul class="ul-CRUD-ptns">
                 <li>
                   <span @click="editNot(n.id)"> edit </span>
-                  <span> delete </span>
+                  <span @click="deletNote(n.id)"> delete </span>
                   <span> complete </span>
                 </li>
               </ul>
@@ -73,21 +75,12 @@
 </template>
 
 <script>
-import showPop from "./showPop.vue";
-import shorten from "../filters/shorten";
 import { mapGetters } from "vuex";
 export default {
-  name: "NotesPage",
-  components: {
-    showPop,
-  },
-
   data() {
     return {
       addModel: false,
       UpdateModel: false,
-      showPopupp: false,
-      completed: false ? " yes" : " no ",
       addUpdateData: {
         id: "",
         title: "",
@@ -106,6 +99,13 @@ export default {
       this.$store.dispatch("addNew", this.addUpdateData).then((response) => {
         if (response) {
           this.UpdateModel = false;
+          //reset data
+          this.addUpdateData = {
+            id: "",
+            title: "",
+            desc: " ",
+            completed: false ? " yes" : " no ",
+          };
         }
       });
     },
@@ -126,6 +126,12 @@ export default {
             this.UpdateModel = false;
           }
         });
+    },
+    deletNote(id) {
+      this.$store.dispatch("delnote", id).then((response) => {
+        alert("deleted ");
+        console.log("deleted sussess......", response);
+      });
     },
   },
 };
