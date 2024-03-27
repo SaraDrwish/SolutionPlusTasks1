@@ -18,10 +18,10 @@ export default new Vuex.Store({
     notes: (state) => state.notesElmnts,
   },
   mutations: {
-    updateNote(state, notaManipyol) {
+    updateNoteStored(state, notaManipyol) {
       state.notesElmnts.forEach((data, i) => {
         if (data.id == notaManipyol.id) {
-          state.notesElmnts[i] = notaManipyol;
+          state.notesElmnts[i] = JSON.parse(JSON.stringify(notaManipyol));
         }
       });
     },
@@ -32,11 +32,11 @@ export default new Vuex.Store({
       //reset the id
       notaManipyol.id = id;
       state.notesElmnts.push(notaManipyol);
+      console.log("addNew success ******* ");
+      return "addNew success ******* ";
     },
 
     getNewnote({ state }, id) {
-      console.log("the not daata is ::::::: ", notData);
-
       let notData = state.notesElmnts.filter((notData) => notData.id == id);
       console.log("the not daata is ::::::: ", notData);
       return notData;
@@ -49,6 +49,9 @@ export default new Vuex.Store({
           commit("updateNoteStored", notaManipyol);
         }
       });
+      console.log("******updateNoteStored success******");
+
+      return "**updateNoteStored success**";
     },
   },
   modules: {},

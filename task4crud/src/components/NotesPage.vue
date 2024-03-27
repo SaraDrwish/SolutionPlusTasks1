@@ -96,10 +96,18 @@ export default {
       },
     };
   },
-
+  computed: {
+    ...mapGetters({
+      notes: "notes",
+    }),
+  },
   methods: {
     addNewNot() {
-      this.$store.dispatch("addNew", this.addUpdateData);
+      this.$store.dispatch("addNew", this.addUpdateData).then((response) => {
+        if (response) {
+          this.UpdateModel = false;
+        }
+      });
     },
     editNot(id) {
       this.UpdateModel = true;
@@ -111,13 +119,14 @@ export default {
       });
     },
     updateNote() {
-      this.$store.dispatch("updateNoteStored", this.addUpdateData);
+      this.$store
+        .dispatch("updateNoteStored", this.addUpdateData)
+        .then((response) => {
+          if (response) {
+            this.UpdateModel = false;
+          }
+        });
     },
-  },
-  computed: {
-    ...mapGetters({
-      notes: "notes",
-    }),
   },
 };
 </script>
