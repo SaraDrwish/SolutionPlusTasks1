@@ -9,14 +9,16 @@
               <div
                 class="flex gap-4 bg-slate-700 p-4 my-9 justify-evenly rounded-[1rem]"
               >
-                <form @submit.prevent="">
+                <form @submit.prevent="AddTodo" class="flex gap-2 w-[90%]">
                   <div class="flex gap-2 w-[90%]">
                     <input
+                      v-model="title"
                       type="text"
                       class="w-[80%] rounded-[1rem] p-2 outline-none flex-1"
                       placeholder="write your title here ... "
                     />
                     <input
+                      v-model="desc"
                       type="text"
                       class="w-[80%] rounded-[1rem] p-2 outline-none flex-1"
                       placeholder="write your description here ... "
@@ -24,7 +26,7 @@
                   </div>
                   <input
                     class="cursor-pointer text-red-400 border-2 border-red-400 p-2"
-                    type="button"
+                    type="submit"
                     value="Add"
                   />
                 </form>
@@ -34,7 +36,8 @@
         </div>
         <div class="">
           <div class="bg-green-100 p-1 w-[90%] mx-auto rounded-[1rem]">
-            <ul v-for="i in 4" :key="i.id">
+            <ul v-for="(tod, indx) in todosList" :key="indx.id">
+              <!-- <div class="" v-if="todoss.length > 0"> -->
               <li>
                 <div
                   class="flex gap-4 w-[90%] bg-[#a7b2b5] p-2 my-4 mx-auto justify-evenly rounded-[1rem]"
@@ -46,16 +49,23 @@
                   <div
                     class="flex gap-1 w-[80%] bg-slate-700 my-1 mx-auto text-orange-600 p-4 rounded-[1rem]"
                   >
-                    <input
-                      type="text"
-                      class="rounded-[1rem] p-2 outline-none w-[30%]"
+                    <p
+                      class="rounded-[1rem] p-2 outline-none w-[30%] m-1"
                       placeholder="title"
-                    />
-                    <input
+                    >
+                      {{ tod.title }}
+                    </p>
+                    <!-- <input
                       type="text"
                       class="rounded-[1rem] p-2 outline-none w-[70%]"
                       placeholder="description"
-                    />
+                    /> -->
+                    <p
+                      class="rounded-[1rem] p-2 outline-none w-[30%] m-1"
+                      placeholder="title"
+                    >
+                      {{ tod.desc }}
+                    </p>
                   </div>
                   <div class="flex gap-2 p-1 justify-between rounded-[1rem]">
                     <input
@@ -71,6 +81,7 @@
                   </div>
                 </div>
               </li>
+              <!-- </div> -->
             </ul>
           </div>
         </div>
@@ -80,8 +91,42 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "TodoView",
+  data() {
+    return {
+      title: "",
+      desc: "",
+      // completed:false,
+    };
+  },
+  computed: {
+    ...mapGetters({
+      todosList: "todosList",
+    }),
+  },
+  methods: {
+    deleteTodo(payload) {
+      store.dispatch("deleteTodo", payload);
+    },
+    // addTodo(payload) {
+    //   store.dispatch("addTodo", payload);
+    // },
+    AddTodo() {
+      if (!this.title || !this.desc) return;
+      const item = {
+        title: this.title,
+        desc: this.desc,
+        completed: false,
+      };
+      this.$store.dispatch("addTodo", payload).then((resp) => {
+        // return addTodo(item);
+        console.log("item:", item, "resp:", resp);
+      });
+      // addTodo({ item });
+    },
+  },
 };
 </script>
 
