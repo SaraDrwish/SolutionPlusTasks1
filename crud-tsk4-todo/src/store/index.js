@@ -16,8 +16,8 @@ export default new Vuex.Store({
       state.todosList.push(payload);
     },
     deleteTodo(state, payload) {
-      state.todosList = state.todosList.filter((elm, indx) => {
-        indx != payload;
+      state.todosList = state.todosList.filter((elm, index) => {
+        index !== payload;
       });
     },
   },

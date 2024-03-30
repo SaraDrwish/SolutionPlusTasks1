@@ -36,7 +36,7 @@
         </div>
         <div class="">
           <div class="bg-green-100 p-1 w-[90%] mx-auto rounded-[1rem]">
-            <ul v-for="(tod, indx) in todosList" :key="indx.id">
+            <ul v-for="(tod, index) in todosList" :key="index">
               <!-- <div class="" v-if="todoss.length > 0"> -->
               <li>
                 <div
@@ -50,7 +50,7 @@
                     class="flex gap-1 w-[80%] bg-slate-700 my-1 mx-auto text-orange-600 p-4 rounded-[1rem]"
                   >
                     <p
-                      class="rounded-[1rem] p-2 outline-none w-[30%] m-1"
+                      class="rounded-[1rem] bg-slate-100 p-2 outline-none w-[30%] m-1"
                       placeholder="title"
                     >
                       {{ tod.title }}
@@ -61,7 +61,7 @@
                       placeholder="description"
                     /> -->
                     <p
-                      class="rounded-[1rem] p-2 outline-none w-[30%] m-1"
+                      class="rounded-[1rem] p-2 bg-slate-100 outline-none w-[30%] m-1"
                       placeholder="title"
                     >
                       {{ tod.desc }}
@@ -69,6 +69,7 @@
                   </div>
                   <div class="flex gap-2 p-1 justify-between rounded-[1rem]">
                     <input
+                      @click="DeleteTodoo(index)"
                       class="p-1 cursor-pointer"
                       type="button"
                       value="Delete"
@@ -107,10 +108,15 @@ export default {
     }),
   },
   methods: {
+    // DeleteTodoo() {
     deleteTodo(payload) {
+      // const deleteTodo = (payload) => {
       this.$store.dispatch("deleteTodo", payload);
+      // console.log("deleteTodo::::", deleteTodo);
     },
-
+    // deleteTodo(index);
+    // return deleteTodo(index);
+    // },
     AddTodo() {
       const addTodo = (payload) => {
         this.$store.dispatch("addTodo", payload);
@@ -121,7 +127,7 @@ export default {
         desc: this.desc,
         completed: false,
       };
-      addTodo(item);
+      (this.title = " "), (this.desc = " "), addTodo(item);
       console.log("item:", item);
     },
   },
