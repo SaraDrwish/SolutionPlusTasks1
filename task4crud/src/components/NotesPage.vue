@@ -51,7 +51,7 @@
             <li>id: {{ n.id }}</li>
             <li>title : {{ n.title | shorten }}</li>
             <li>desc : {{ n.desc | shorten }}</li>
-            <li>{{ n.completed }}</li>
+            <li>{{ !addUpdateData.completed }}</li>
             <div class="btns-box-container">
               <ul class="ul-CRUD-ptns">
                 <li>

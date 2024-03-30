@@ -12,7 +12,7 @@ export default new Vuex.Store({
         id: 1,
         title: "test ",
         desc: "test eru11 ",
-        completed: false,
+        completed: false ? "yes" : "no",
       },
     ],
   },
