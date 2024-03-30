@@ -5,8 +5,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    // todosList: [],
-    todosList: [{ title: "", desc: "" }],
+    todosList: [],
+    // todosList: [{ title: "", desc: "" }],
   },
   getters: {
     todosList: (state) => state.todosList,

@@ -108,23 +108,21 @@ export default {
   },
   methods: {
     deleteTodo(payload) {
-      store.dispatch("deleteTodo", payload);
+      this.$store.dispatch("deleteTodo", payload);
     },
-    // addTodo(payload) {
-    //   store.dispatch("addTodo", payload);
-    // },
+
     AddTodo() {
+      const addTodo = (payload) => {
+        this.$store.dispatch("addTodo", payload);
+      };
       if (!this.title || !this.desc) return;
       const item = {
         title: this.title,
         desc: this.desc,
         completed: false,
       };
-      this.$store.dispatch("addTodo", payload).then((resp) => {
-        // return addTodo(item);
-        console.log("item:", item, "resp:", resp);
-      });
-      // addTodo({ item });
+      addTodo(item);
+      console.log("item:", item);
     },
   },
 };
