@@ -40,16 +40,10 @@
             class="bg-green-100 p-1 w-[90%] mx-auto rounded-[1rem]"
           >
             <ul v-for="(item, index) in todosList" :key="index">
-              <!-- <div class="" v-if="todoss.length > 0"> -->
               <li>
                 <div
                   class="flex gap-4 w-[90%] bg-[#a7b2b5] p-2 my-4 mx-auto items-center justify-evenly rounded-[1rem]"
                 >
-                  <!-- <input
-                    @click="compeletTodo(index)"
-                    type="checkbox"
-                    class="p-2 m-1 outline-none text-orange-400 bg-orange-200"
-                  /> -->
                   <button
                     :disabled="item.completed"
                     :class="item.completed ? 'bg-green-300' : 'bg-red-400 '"
@@ -68,11 +62,7 @@
                     >
                       {{ item.title }}
                     </p>
-                    <!-- <input
-                      type="text"
-                      class="rounded-[1rem] p-2 outline-none w-[70%]"
-                      placeholder="description"
-                    /> -->
+
                     <p
                       class="rounded-[1rem] p-2 bg-slate-100 outline-none w-[30%] m-1"
                       placeholder="title"
@@ -98,7 +88,6 @@
                   </div>
                 </div>
               </li>
-              <!-- </div> -->
             </ul>
           </div>
         </div>
@@ -127,27 +116,13 @@ export default {
     deleteTodo(payload) {
       this.$store.dispatch("deleteTodo", payload);
       console.log("deleteTodo :::::working paylod :", payload);
-      // return "deleteTodo";
     },
 
     compeletTodo(payload) {
       this.$store.dispatch("compeletTodo", payload);
       console.log("compeletTodoooo ");
+      return payload;
     },
-
-    //     const compeletTodoo = (payload) => {
-    //   this.$store.dispatch("compeletTodo",payload)
-    // }
-
-    // DelF(index) {
-    // const deleteTodo = (payload) => {
-    // this.$store.dispatch("deleteTodo", payload);
-    // console.log("deleteTodo::::", deleteTodo, "payload::", payload);
-    // };
-    // console.log("deeeeeelll");
-    // return deleteTodo;
-    // deleteTodo(index);
-    // },
 
     AddTodo() {
       const addTodo = (payload) => {

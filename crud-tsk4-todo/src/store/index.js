@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    todosList: [],
+    todosList: JSON.parse(localStorage.getItem("todosList")) || [],
     // todosList: [{ title: "", desc: "" }],
   },
   getters: {
@@ -14,11 +14,13 @@ export default new Vuex.Store({
   mutations: {
     addTodo(state, payload) {
       state.todosList.push(payload);
+      localStorage.setItem("todosList", JSON.stringify(state.todosList));
     },
     deleteTodo(state, payload) {
       state.todosList = state.todosList.filter((elm, index) => {
         index !== payload;
       });
+      localStorage.setItem("todosList", JSON.stringify(state.todosList));
     },
     compeletTodo(state, payload) {
       state.todosList = state.todosList.filter((elm, index) => {
@@ -27,6 +29,7 @@ export default new Vuex.Store({
         }
         return elm;
       });
+      localStorage.setItem("todosList", JSON.stringify(state.todosList));
     },
   },
   actions: {
