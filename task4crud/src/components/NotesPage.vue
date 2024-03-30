@@ -17,7 +17,7 @@
               <label>description:</label>
               <input type="text" v-model="addUpdateData.desc" />
             </div>
-            <button @click="addNewNot">create</button>
+            <button @click="addNewNot" @keyup.enter="addNewNot">create</button>
           </div>
         </div>
         <!-- ////////////////ADD Note POPUP END///////////////// -->
@@ -34,7 +34,9 @@
               <label>description:</label>
               <input type="text" v-model="addUpdateData.desc" />
             </div>
-            <button @click="updateNote">Update</button>
+            <button @click="updateNote" @keyup.enter="updateNote">
+              Update
+            </button>
           </div>
         </div>
         <!-- ////////////////UPDATE Note POPUP END///////////////// -->
@@ -51,15 +53,13 @@
             <li>id: {{ n.id }}</li>
             <li>title : {{ n.title | shorten }}</li>
             <li>desc : {{ n.desc | shorten }}</li>
-            <li>{{ !addUpdateData.completed }}</li>
+            <li>{{ n.completed }}</li>
             <div class="btns-box-container">
               <ul class="ul-CRUD-ptns">
                 <li>
                   <span @click="editNot(n.id)"> edit </span>
                   <span @click="deletNote(n.id)"> delete </span>
-                  <span class="cmplt" @click="toglNotComltd(n.id)">
-                    complete
-                  </span>
+                  <span @click="toglNotComltd(n.id)"> complete </span>
                 </li>
               </ul>
             </div>
@@ -74,7 +74,6 @@
 </template>
 
 <script>
-import { computed } from "vue";
 import { mapGetters } from "vuex";
 import shorten from "../filters/shorten";
 const loclStoregKey = "loclStoreg";
@@ -84,6 +83,7 @@ export default {
     return {
       addModel: false,
       UpdateModel: false,
+      cmblt: false,
       addUpdateData: {
         id: "",
         title: "",
@@ -103,11 +103,11 @@ export default {
     //   );
     // },
   },
-  // created() {
-  //   this.addUpdateData = JSON.parse(
-  //     localStorage.getItem(loclStoregKey || this.notes)
-  //   );
-  // },
+  mounted() {
+    this.addUpdateData = JSON.parse(
+      localStorage.getItem(loclStoregKey || " []")
+    );
+  },
   methods: {
     addNewNot() {
       this.$store.dispatch("addNew", this.addUpdateData).then((response) => {
@@ -122,8 +122,9 @@ export default {
             completed: false,
           };
         }
-        localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
       });
+      localStorage.setItem(loclStoregKey, JSON.stringify(this.addUpdateData));
+      // localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
     },
 
     editNot(id) {
@@ -143,7 +144,8 @@ export default {
 
         // localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
       });
-      localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
+      // localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
+      localStorage.setItem(loclStoregKey, JSON.stringify(this.addUpdateData));
     },
     updateNote() {
       this.$store
@@ -153,35 +155,47 @@ export default {
             this.UpdateModel = false;
           }
         });
-      localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
+      // localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
+      localStorage.setItem(loclStoregKey, JSON.stringify(this.addUpdateData));
     },
 
     toglNotComltd(id) {
       this.$store.dispatch("toglNotComStored", id).then((response) => {
         {
-          this.addUpdateData.completed = !this.addUpdateData.completed;
+          // this.addUpdateData.completed = !response[0].completed;
+
           console.log(
             "toglNotComltd sucess.",
             id,
             response,
             "<< - res",
+            "! this.addUpdateData.completed",
+            !this.addUpdateData.completed,
             "this.addUpdateData.completed",
-            !this.addUpdateData.completed
+            this.addUpdateData.completed
           );
+          // return this.addUpdateData.completed;
+
+          if (this.addUpdateData.completed) {
+            return !this.addUpdateData.completed;
+          } else {
+            return this.addUpdateData.completed;
+          }
         }
       });
-      localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
+      // localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
+      // localStorage.setItem(loclStoregKey, JSON.stringify(this.addUpdateData));
     },
 
     // ////
     deletNote(id) {
       this.$store.dispatch("delnote", id).then((response) => {
-        // alert("deleted ");
         console.log("deleted sussess ....", response);
-
-        // localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
       });
+      // localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
+      // localStorage.setItem(loclStoregKey, JSON.stringify(this.addUpdateData));
     },
+    // /////////
   },
 };
 </script>

@@ -38,6 +38,13 @@ export default new Vuex.Store({
   },
   actions: {
     addNew({ state }, notaManipyol) {
+      // if (state.notesElmnts.includes(id) === false) {
+
+      // localStorage.setItem(loclStoregKey, JSON.stringify(this.notesElmnts));
+      // } else {
+      // id -= 1;
+      // }
+
       let id = state.notesElmnts.length + 1;
       //reset the id
       notaManipyol.id = id;
@@ -78,14 +85,21 @@ export default new Vuex.Store({
       return "success deletion ";
     },
     toglNotComStored({ state }, id) {
+      // let d = state.notesElmnts.filter((d) => d.id == id);
+
       state.notesElmnts.forEach((d, i) => {
         if (d.id == id) {
-          state.notesElmnts.completed = !state.notesElmnts.completed;
+          // if (state.notesElmnts.completed === true) {
+          //   return false;
+          // } else {
+          //   return false;
+          // }
         }
       });
       // localStorage.setItem(loclStoregKey, JSON.stringify(this.notesElmnts));
 
       console.log("sussecc change status of completed");
+      // return d;
     },
   },
   modules: {},
