@@ -40,12 +40,20 @@
               <!-- <div class="" v-if="todoss.length > 0"> -->
               <li>
                 <div
-                  class="flex gap-4 w-[90%] bg-[#a7b2b5] p-2 my-4 mx-auto justify-evenly rounded-[1rem]"
+                  class="flex gap-4 w-[90%] bg-[#a7b2b5] p-2 my-4 mx-auto items-center justify-evenly rounded-[1rem]"
                 >
-                  <input
+                  <!-- <input
+                    @click="compeletTodo(index)"
                     type="checkbox"
                     class="p-2 m-1 outline-none text-orange-400 bg-orange-200"
-                  />
+                  /> -->
+                  <button
+                    class="p-1 mx-auto my-1 text-center outline-none text-orange-200 bg-orange-400 rounded-[5rem] w-[4%]"
+                    @click="compeletTodo(index)"
+                  >
+                    -
+                  </button>
+
                   <div
                     class="flex gap-1 w-[80%] bg-slate-700 my-1 mx-auto text-orange-600 p-4 rounded-[1rem]"
                   >
@@ -67,13 +75,16 @@
                       {{ tod.desc }}
                     </p>
                   </div>
+
                   <div class="flex gap-2 p-1 justify-between rounded-[1rem]">
+                    <!-- --{{ index }}-- -->
                     <input
-                      @click="DeleteTodoo(index)"
+                      @click="deleteTodo(index)"
                       class="p-1 cursor-pointer"
-                      type="button"
+                      type="submit"
                       value="Delete"
                     />
+
                     <input
                       class="p-1 cursor-pointer"
                       type="button"
@@ -108,15 +119,21 @@ export default {
     }),
   },
   methods: {
-    // DeleteTodoo() {
     deleteTodo(payload) {
-      // const deleteTodo = (payload) => {
       this.$store.dispatch("deleteTodo", payload);
-      // console.log("deleteTodo::::", deleteTodo);
+      console.log("deleteTodo :::::working paylod :", payload);
+      return "deleteTodo";
     },
+    // DelF(index) {
+    // const deleteTodo = (payload) => {
+    // this.$store.dispatch("deleteTodo", payload);
+    // console.log("deleteTodo::::", deleteTodo, "payload::", payload);
+    // };
+    // console.log("deeeeeelll");
+    // return deleteTodo;
     // deleteTodo(index);
-    // return deleteTodo(index);
     // },
+
     AddTodo() {
       const addTodo = (payload) => {
         this.$store.dispatch("addTodo", payload);
@@ -127,6 +144,7 @@ export default {
         desc: this.desc,
         completed: false,
       };
+
       (this.title = " "), (this.desc = " "), addTodo(item);
       console.log("item:", item);
     },

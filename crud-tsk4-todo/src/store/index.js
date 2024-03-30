@@ -17,7 +17,15 @@ export default new Vuex.Store({
     },
     deleteTodo(state, payload) {
       state.todosList = state.todosList.filter((elm, index) => {
-        index !== payload;
+        index != payload;
+      });
+    },
+    compeletTodo(state, payload) {
+      state.todosList = state.todosList.filter((elm, index) => {
+        if (elm == payload) {
+          comp.compelete = true;
+        }
+        return comp;
       });
     },
   },
@@ -27,6 +35,9 @@ export default new Vuex.Store({
     },
     deleteTodo({ commit }, payload) {
       commit("deleteTodo", payload);
+    },
+    compeletTodo({ commit }, payload) {
+      commit("compeletTodo", payload);
     },
   },
   modules: {},
