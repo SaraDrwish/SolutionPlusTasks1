@@ -21,11 +21,11 @@ export default new Vuex.Store({
   },
   mutations: {
     updateNoteStored(state, notaManipyol) {
-      notes.forEach((data, i) => {
+      state.notesElmnts.forEach((data, i) => {
         if (data.id == notaManipyol.id) {
-          notes[i] = JSON.parse(JSON.stringify(notaManipyol));
-          console.log("notes..", notes);
-          console.log("state.notesElmnts..", state.notesElmnts);
+          // notes[i] = JSON.parse(JSON.stringify(notaManipyol));
+          state.notesElmnts[i] = JSON.parse(JSON.stringify(notaManipyol));
+          // console.log("state.notesElmnts..", state.notesElmnts);
         }
       });
       // localStorage.setItem(loclStoregKey, JSON.stringify(this.notesElmnts));
@@ -39,51 +39,26 @@ export default new Vuex.Store({
       state.notesElmnts.push(JSON.parse(JSON.stringify(notaManipyol)));
       console.log("addNew success ******* ");
       // localStorage.setItem(loclStoregKey, JSON.stringify(this.notesElmnts));
-      return "addNew";
+      return "sucsess addNew";
     },
 
     getNewnote({ state }, id) {
       let data = state.notesElmnts.filter((data) => data.id == id);
-      // console.log(
-      //   "the not daata is ::::::: ",
-      //   data,
-      //   "..not elmnts ::::..",
-      //   notesElmnts
-      // );
-      // localStorage.setItem(loclStoregKey, JSON.stringify(this.notesElmnts));
 
       return data;
     },
 
     updateNoteStored({ commit, state }, notaManipyol) {
       state.notesElmnts.forEach((el) => {
-        console.log("notaManipyol::", notaManipyol);
         if (el.id == notaManipyol.id) {
           commit("updateNoteStored", notaManipyol);
         }
       });
-      // localStorage.setItem(loclStoregKey, JSON.stringify(this.notesElmnts));
-
       console.log("******updateNoteStored success******");
-
-      return "updateNoteStored";
+      return "sucsess updateNoteStored";
     },
     // /////////
-    // toggleNoteComplteStored({ commit, state }, notaManipyol) {
-    //   state.notesElmnts.forEach((elm) => {
-    //     console.log("toglecomplt::", notaManipyol);
-    //     if (elm.id == notaManipyol.id) {
-    //       commit("toglecomplt", notaManipyol);
-    //     }
-    //   });
-    //   console.log("******toglecomplt success******");
-    //   return "toglecomplt";
-    // },
-    togglN({ commit, state }, notaManipyol) {
-      state.notesElmnts.completed = !state.notesElmnts.completed;
-      return "togglN";
-    },
-    // ////////
+
     delnote({ state }, id) {
       state.notesElmnts.forEach((d, i) => {
         if (d.id == id) {
@@ -91,8 +66,17 @@ export default new Vuex.Store({
         }
       });
       // localStorage.setItem(loclStoregKey, JSON.stringify(this.notesElmnts));
-
       console.log("sussecc dell");
+
+      return "success deletion ";
+    },
+    toglNotComStored({ state }, id) {
+      state.notesElmnts.forEach((d, i) => {
+        if (d.id == id) {
+          state.notesElmnts.completed = !state.notesElmnts.completed;
+        }
+      });
+      console.log("sussecc change status of completed");
     },
   },
   modules: {},
