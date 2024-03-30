@@ -4,8 +4,7 @@
       <div class="noteBoxes">
         <h2>Notes :</h2>
         <span @click="addModel = true">add</span>
-        <!-- ///////////////////////////// -->
-        <!-- {{ notes }} -->
+
         <!-- ////////////////ADD Note POPUP Start///////////////// -->
         <div class="addcontainer" v-show="addModel">
           <div class="addpopupOverlay" @click="addModel = false"></div>
@@ -81,11 +80,8 @@
 
 <script>
 import { mapGetters } from "vuex";
-// import { mapActions, mapGetters } from "vuex";
 import shorten from "../filters/shorten";
 // const loclStoregKey = "loclStoreg";
-
-// app.input = localStorage.getItem("addUpdateData");
 
 export default {
   data() {
@@ -105,20 +101,6 @@ export default {
     ...mapGetters({
       notes: "notes",
     }),
-    // /////////////////
-    // watch: {
-    // input: function () {
-    //   if (isLocalStorage()) {
-    //     localStorage.setItem("addUpdateData", this.addUpdateData);
-    //   }
-    // },
-    // },
-    // ///////////////////
-    // addUpdateDataSTORG() {
-    //   this.addUpdateData = JSON.parse(
-    //     localStorage.getItem(loclStoregKey || this.notes)
-    //   );
-    // },
   },
   // mounted() {
   // this.notes = JSON.parse(localStorage.getItem(loclStoregKey || " []"));
@@ -127,7 +109,6 @@ export default {
   // );
   // },
   methods: {
-    // ...mapActions([""]),
     addNewNot() {
       this.$store.dispatch("addNew", this.addUpdateData).then((response) => {
         if (response) {
@@ -143,7 +124,6 @@ export default {
         }
       });
       // localStorage.setItem(loclStoregKey, JSON.stringify(this.addUpdateData));
-      // localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
     },
 
     editNot(id) {
@@ -154,16 +134,7 @@ export default {
         this.addUpdateData.desc = response[0].desc;
         this.addUpdateData.completed = response[0].completed;
         console.log("response......", response);
-        // this.addUpdateData = {
-        //   id: "",
-        //   title: "",
-        //   desc: " ",
-        //   completed: false,
-        // };
-
-        // localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
       });
-      // localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
       // localStorage.setItem(loclStoregKey, JSON.stringify(this.addUpdateData));
     },
 
@@ -175,8 +146,6 @@ export default {
             this.UpdateModel = false;
           }
         });
-      // localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
-      // localStorage.setItem(loclStoregKey, JSON.stringify(this.addUpdateData));
     },
 
     toglNotComltd(id) {
@@ -200,8 +169,6 @@ export default {
       this.$store.dispatch("delnote", id).then((response) => {
         console.log("deleted sussess ....", response);
       });
-      // localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
-      // localStorage.setItem(loclStoregKey, JSON.stringify(this.addUpdateData));
     },
     // /////////
   },
