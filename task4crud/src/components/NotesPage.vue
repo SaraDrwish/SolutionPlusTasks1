@@ -57,7 +57,6 @@
                 <li>
                   <span @click="editNot(n.id)"> edit </span>
                   <span @click="deletNote(n.id)"> delete </span>
-                  <!-- <span> complete </span> -->
                   <span class="cmplt" @click="toglNotComltd(n.id)">
                     complete
                   </span>
@@ -78,14 +77,13 @@
 import { computed } from "vue";
 import { mapGetters } from "vuex";
 import shorten from "../filters/shorten";
-// const loclStoregKey = "loclStoreg";
+const loclStoregKey = "loclStoreg";
 
 export default {
   data() {
     return {
       addModel: false,
       UpdateModel: false,
-      // cmplt: false,
       addUpdateData: {
         id: "",
         title: "",
@@ -98,13 +96,17 @@ export default {
     ...mapGetters({
       notes: "notes",
     }),
+
+    // addUpdateDataSTORG() {
+    //   this.addUpdateData = JSON.parse(
+    //     localStorage.getItem(loclStoregKey || this.notes)
+    //   );
+    // },
   },
   // created() {
-  // this.notes = JSON.parse(localStorage.getItem(loclStoregKey || "[]"));
-  // this.addUpdateData = JSON.parse(
-  // localStorage.getItem(loclStoregKey || "[]")
-  // );
-  // this.id = JSON.parse(localStorage.getItem(loclStoregKey || "[]"));
+  //   this.addUpdateData = JSON.parse(
+  //     localStorage.getItem(loclStoregKey || this.notes)
+  //   );
   // },
   methods: {
     addNewNot() {
@@ -120,8 +122,7 @@ export default {
             completed: false,
           };
         }
-        // localStorage.setItem(loclStoregKey, JSON.stringify(this.addUpdateData));
-        // localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
+        localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
       });
     },
 
@@ -139,9 +140,10 @@ export default {
         //   desc: " ",
         //   completed: false,
         // };
-        // localStorage.setItem(loclStoregKey, JSON.stringify(this.id));
+
         // localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
       });
+      localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
     },
     updateNote() {
       this.$store
@@ -151,6 +153,7 @@ export default {
             this.UpdateModel = false;
           }
         });
+      localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
     },
 
     toglNotComltd(id) {
@@ -167,6 +170,7 @@ export default {
           );
         }
       });
+      localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
     },
 
     // ////
@@ -174,7 +178,7 @@ export default {
       this.$store.dispatch("delnote", id).then((response) => {
         // alert("deleted ");
         console.log("deleted sussess ....", response);
-        // localStorage.setItem(loclStoregKey, JSON.stringify(this.id));
+
         // localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
       });
     },

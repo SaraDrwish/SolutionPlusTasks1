@@ -12,10 +12,17 @@ export default new Vuex.Store({
         id: 1,
         title: "test ",
         desc: "test eru11 ",
-        completed: false ? "yes" : "no",
+        completed: false,
       },
     ],
   },
+
+  // created() {
+  //   this.addUpdateData = JSON.parse(
+  //     localStorage.getItem(loclStoregKey || "[]")
+  //   );
+  // },
+
   getters: {
     notes: (state) => state.notesElmnts,
   },
@@ -23,9 +30,7 @@ export default new Vuex.Store({
     updateNoteStored(state, notaManipyol) {
       state.notesElmnts.forEach((data, i) => {
         if (data.id == notaManipyol.id) {
-          // notes[i] = JSON.parse(JSON.stringify(notaManipyol));
           state.notesElmnts[i] = JSON.parse(JSON.stringify(notaManipyol));
-          // console.log("state.notesElmnts..", state.notesElmnts);
         }
       });
       // localStorage.setItem(loclStoregKey, JSON.stringify(this.notesElmnts));
@@ -54,6 +59,8 @@ export default new Vuex.Store({
           commit("updateNoteStored", notaManipyol);
         }
       });
+      // localStorage.setItem(loclStoregKey, JSON.stringify(this.notesElmnts));
+
       console.log("******updateNoteStored success******");
       return "sucsess updateNoteStored";
     },
@@ -76,6 +83,8 @@ export default new Vuex.Store({
           state.notesElmnts.completed = !state.notesElmnts.completed;
         }
       });
+      // localStorage.setItem(loclStoregKey, JSON.stringify(this.notesElmnts));
+
       console.log("sussecc change status of completed");
     },
   },
