@@ -54,12 +54,18 @@
             <li>title : {{ n.title | shorten }}</li>
             <li>desc : {{ n.desc | shorten }}</li>
             <li>{{ n.completed }}</li>
+            <!-- <li>{{ n.completed }}</li> -->
             <div class="btns-box-container">
               <ul class="ul-CRUD-ptns">
                 <li>
                   <span @click="editNot(n.id)"> edit </span>
                   <span @click="deletNote(n.id)"> delete </span>
-                  <span @click="toglNotComltd(n.id)"> complete </span>
+                  <span
+                    @click="toglNotComltd(n.id)"
+                    :model="toglNotComltd(n.id)"
+                  >
+                    complete
+                  </span>
                 </li>
               </ul>
             </div>
@@ -75,8 +81,11 @@
 
 <script>
 import { mapGetters } from "vuex";
+// import { mapActions, mapGetters } from "vuex";
 import shorten from "../filters/shorten";
-const loclStoregKey = "loclStoreg";
+// const loclStoregKey = "loclStoreg";
+
+// app.input = localStorage.getItem("addUpdateData");
 
 export default {
   data() {
@@ -96,19 +105,29 @@ export default {
     ...mapGetters({
       notes: "notes",
     }),
-
+    // /////////////////
+    // watch: {
+    // input: function () {
+    //   if (isLocalStorage()) {
+    //     localStorage.setItem("addUpdateData", this.addUpdateData);
+    //   }
+    // },
+    // },
+    // ///////////////////
     // addUpdateDataSTORG() {
     //   this.addUpdateData = JSON.parse(
     //     localStorage.getItem(loclStoregKey || this.notes)
     //   );
     // },
   },
-  mounted() {
-    this.addUpdateData = JSON.parse(
-      localStorage.getItem(loclStoregKey || " []")
-    );
-  },
+  // mounted() {
+  // this.notes = JSON.parse(localStorage.getItem(loclStoregKey || " []"));
+  // this.addUpdateData = JSON.parse(
+  //   localStorage.getItem(loclStoregKey || " []")
+  // );
+  // },
   methods: {
+    // ...mapActions([""]),
     addNewNot() {
       this.$store.dispatch("addNew", this.addUpdateData).then((response) => {
         if (response) {
@@ -123,7 +142,7 @@ export default {
           };
         }
       });
-      localStorage.setItem(loclStoregKey, JSON.stringify(this.addUpdateData));
+      // localStorage.setItem(loclStoregKey, JSON.stringify(this.addUpdateData));
       // localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
     },
 
@@ -145,8 +164,9 @@ export default {
         // localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
       });
       // localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
-      localStorage.setItem(loclStoregKey, JSON.stringify(this.addUpdateData));
+      // localStorage.setItem(loclStoregKey, JSON.stringify(this.addUpdateData));
     },
+
     updateNote() {
       this.$store
         .dispatch("updateNoteStored", this.addUpdateData)
@@ -156,35 +176,23 @@ export default {
           }
         });
       // localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
-      localStorage.setItem(loclStoregKey, JSON.stringify(this.addUpdateData));
+      // localStorage.setItem(loclStoregKey, JSON.stringify(this.addUpdateData));
     },
 
     toglNotComltd(id) {
       this.$store.dispatch("toglNotComStored", id).then((response) => {
         {
-          // this.addUpdateData.completed = !response[0].completed;
-
           console.log(
             "toglNotComltd sucess.",
             id,
             response,
             "<< - res",
-            "! this.addUpdateData.completed",
-            !this.addUpdateData.completed,
             "this.addUpdateData.completed",
-            this.addUpdateData.completed
+            !this.addUpdateData.completed
           );
-          // return this.addUpdateData.completed;
-
-          if (this.addUpdateData.completed) {
-            return !this.addUpdateData.completed;
-          } else {
-            return this.addUpdateData.completed;
-          }
+          return (this.addUpdateData.completed = !this.addUpdateData.completed);
         }
       });
-      // localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
-      // localStorage.setItem(loclStoregKey, JSON.stringify(this.addUpdateData));
     },
 
     // ////

@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-// const loclStoregKey = "loclStoreg";
+const localStorageKey = "localStorage";
 
 Vue.use(Vuex);
 
@@ -10,11 +10,12 @@ export default new Vuex.Store({
     notesElmnts: [
       {
         id: 1,
-        title: "test ",
-        desc: "test eru11 ",
+        title: "title test 1 ",
+        desc: "description test 1 lorem11  ",
         completed: false,
       },
     ],
+    // notesElmntsLocalS: JSON.parse(localStorage.getItem("notesElmnts")) || "[]",
   },
 
   // created() {
@@ -22,6 +23,10 @@ export default new Vuex.Store({
   //     localStorage.getItem(loclStoregKey || "[]")
   //   );
   // },
+
+  mounted() {
+    state.notesElmnts = JSON.parse(localStorage.getItem(localStorageKey));
+  },
 
   getters: {
     notes: (state) => state.notesElmnts,
@@ -33,7 +38,15 @@ export default new Vuex.Store({
           state.notesElmnts[i] = JSON.parse(JSON.stringify(notaManipyol));
         }
       });
-      // localStorage.setItem(loclStoregKey, JSON.stringify(this.notesElmnts));
+      // localStorage.setItem(
+      //   "notesElmntsLocalS",
+      //   JSON.stringify(state.notesElmnts)
+      // );
+      // localStorage.setItem("notesElmnts", JSON.stringify(state.notesElmnts));
+      localStorage.setItem(
+        "localStorageKey",
+        JSON.stringify(state.notesElmnts)
+      );
     },
   },
   actions: {
@@ -50,12 +63,17 @@ export default new Vuex.Store({
       notaManipyol.id = id;
       state.notesElmnts.push(JSON.parse(JSON.stringify(notaManipyol)));
       console.log("addNew success ******* ");
-      // localStorage.setItem(loclStoregKey, JSON.stringify(this.notesElmnts));
+      // localStorage.setItem("notesElmnts", JSON.stringify(state.notesElmnts));
+      localStorage.setItem(
+        "localStorageKey",
+        JSON.stringify(state.notesElmnts)
+      );
       return "sucsess addNew";
     },
 
     getNewnote({ state }, id) {
       let data = state.notesElmnts.filter((data) => data.id == id);
+      // localStorage.setItem("notesElmnts", JSON.stringify(state.notesElmnts));
 
       return data;
     },
@@ -66,8 +84,11 @@ export default new Vuex.Store({
           commit("updateNoteStored", notaManipyol);
         }
       });
-      // localStorage.setItem(loclStoregKey, JSON.stringify(this.notesElmnts));
-
+      // localStorage.setItem("notesElmnts", JSON.stringify(state.notesElmnts));
+      localStorage.setItem(
+        "localStorageKey",
+        JSON.stringify(state.notesElmnts)
+      );
       console.log("******updateNoteStored success******");
       return "sucsess updateNoteStored";
     },
@@ -79,27 +100,25 @@ export default new Vuex.Store({
           state.notesElmnts.splice(i, 1);
         }
       });
-      // localStorage.setItem(loclStoregKey, JSON.stringify(this.notesElmnts));
+      // localStorage.setItem("notesElmnts", JSON.stringify(state.notesElmnts));
       console.log("sussecc dell");
 
       return "success deletion ";
     },
     toglNotComStored({ state }, id) {
-      // let d = state.notesElmnts.filter((d) => d.id == id);
+      // state.notesElmnts.forEach((d, i) => {
+      // if (d.id == id) {
 
-      state.notesElmnts.forEach((d, i) => {
-        if (d.id == id) {
-          // if (state.notesElmnts.completed === true) {
-          //   return false;
-          // } else {
-          //   return false;
-          // }
-        }
-      });
-      // localStorage.setItem(loclStoregKey, JSON.stringify(this.notesElmnts));
+      // return (state.notesElmnts.completed = !state.notesElmnts.completed);
 
-      console.log("sussecc change status of completed");
-      // return d;
+      // }
+      localStorage.setItem(
+        "localStorageKey",
+        JSON.stringify(state.notesElmnts)
+      );
+      return (state.notesElmnts.completed = !state.notesElmnts.completed);
+      // });
+      // console.log("sussecc change status of completed");
     },
   },
   modules: {},
