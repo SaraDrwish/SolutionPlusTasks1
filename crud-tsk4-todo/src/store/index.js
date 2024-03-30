@@ -18,16 +18,36 @@ export default new Vuex.Store({
     },
     deleteTodo(state, payload) {
       state.todosList = state.todosList.filter((elm, index) => {
-        index !== payload;
+        return index !== payload;
       });
       localStorage.setItem("todosList", JSON.stringify(state.todosList));
     },
     compeletTodo(state, payload) {
+      console.log(
+        "todosList[payload].completed",
+        state.todosList[payload].completed
+      );
       state.todosList = state.todosList.filter((elm, index) => {
-        if (elm == payload) {
+        if (index == payload) {
+          // state.todosList[payload].completed = true;
+          // console.log("::elm.completed::::", elm.completed, "::elmmmmm:::::");
+
           elm.completed = true;
+          // return elm;
         }
+        // console.log("elm.completed::", (elm.completed = true));
+
+        // return (elm.completed = true);
         return elm;
+        // return state.todosList[payload].completed;
+      });
+      localStorage.setItem("todosList", JSON.stringify(state.todosList));
+    },
+    updateTodo(state, payload) {
+      state.todosList.forEach((data, i) => {
+        if (data.id == payload.id) {
+          state.todosList[i] = JSON.parse(JSON.stringify(payload));
+        }
       });
       localStorage.setItem("todosList", JSON.stringify(state.todosList));
     },
@@ -41,6 +61,16 @@ export default new Vuex.Store({
     },
     compeletTodo({ commit }, payload) {
       commit("compeletTodo", payload);
+    },
+    updateTodo({ commit, state }, payload) {
+      state.todosList.forEach((el) => {
+        if (el.id == payload.id) {
+          commit("updateTodo", payload);
+        }
+      });
+      localStorage.setItem("todosList", JSON.stringify(state.todosList));
+      console.log("****** updated success******");
+      return "sucsess";
     },
   },
   modules: {},

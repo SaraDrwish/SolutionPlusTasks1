@@ -81,6 +81,7 @@
                     />
 
                     <input
+                      @click="updateTodo(index)"
                       class="p-1 cursor-pointer"
                       type="button"
                       value="Edit"
@@ -115,13 +116,20 @@ export default {
   methods: {
     deleteTodo(payload) {
       this.$store.dispatch("deleteTodo", payload);
-      console.log("deleteTodo :::::working paylod :", payload);
+      console.log("deleteTodo :::::working paylod ::", payload);
     },
 
     compeletTodo(payload) {
       this.$store.dispatch("compeletTodo", payload);
-      console.log("compeletTodoooo ");
-      return payload;
+      console.log("compeletTodoooo :", payload);
+
+      // return payload;
+    },
+
+    updateTodo(payload) {
+      this.$store.dispatch("compeletTodo", payload);
+      console.log("updateTodo .....!!!!!!! ");
+      // return payload;
     },
 
     AddTodo() {
