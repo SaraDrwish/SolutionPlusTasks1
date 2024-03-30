@@ -17,15 +17,15 @@ export default new Vuex.Store({
     },
     deleteTodo(state, payload) {
       state.todosList = state.todosList.filter((elm, index) => {
-        index != payload;
+        index !== payload;
       });
     },
     compeletTodo(state, payload) {
       state.todosList = state.todosList.filter((elm, index) => {
         if (elm == payload) {
-          comp.compelete = true;
+          elm.completed = true;
         }
-        return comp;
+        return elm;
       });
     },
   },

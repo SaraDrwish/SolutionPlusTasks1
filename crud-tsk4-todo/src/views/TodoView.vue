@@ -35,8 +35,11 @@
           </ul>
         </div>
         <div class="">
-          <div class="bg-green-100 p-1 w-[90%] mx-auto rounded-[1rem]">
-            <ul v-for="(tod, index) in todosList" :key="index">
+          <div
+            v-if="todosList.length > 0"
+            class="bg-green-100 p-1 w-[90%] mx-auto rounded-[1rem]"
+          >
+            <ul v-for="(item, index) in todosList" :key="index">
               <!-- <div class="" v-if="todoss.length > 0"> -->
               <li>
                 <div
@@ -48,10 +51,12 @@
                     class="p-2 m-1 outline-none text-orange-400 bg-orange-200"
                   /> -->
                   <button
-                    class="p-1 mx-auto my-1 text-center outline-none text-orange-200 bg-orange-400 rounded-[5rem] w-[4%]"
+                    :disabled="item.completed"
+                    :class="item.completed ? 'bg-green-300' : 'bg-red-400 '"
+                    class="p-2 mx-auto my-1 text-center outline-none text-orange-900 rounded-[5rem]"
                     @click="compeletTodo(index)"
                   >
-                    -
+                    {{ item.completed ? "completed" : "incompleted" }}
                   </button>
 
                   <div
@@ -61,7 +66,7 @@
                       class="rounded-[1rem] bg-slate-100 p-2 outline-none w-[30%] m-1"
                       placeholder="title"
                     >
-                      {{ tod.title }}
+                      {{ item.title }}
                     </p>
                     <!-- <input
                       type="text"
@@ -72,7 +77,7 @@
                       class="rounded-[1rem] p-2 bg-slate-100 outline-none w-[30%] m-1"
                       placeholder="title"
                     >
-                      {{ tod.desc }}
+                      {{ item.desc }}
                     </p>
                   </div>
 
@@ -110,7 +115,7 @@ export default {
     return {
       title: "",
       desc: "",
-      // completed:false,
+      completed: false,
     };
   },
   computed: {
@@ -122,8 +127,18 @@ export default {
     deleteTodo(payload) {
       this.$store.dispatch("deleteTodo", payload);
       console.log("deleteTodo :::::working paylod :", payload);
-      return "deleteTodo";
+      // return "deleteTodo";
     },
+
+    compeletTodo(payload) {
+      this.$store.dispatch("compeletTodo", payload);
+      console.log("compeletTodoooo ");
+    },
+
+    //     const compeletTodoo = (payload) => {
+    //   this.$store.dispatch("compeletTodo",payload)
+    // }
+
     // DelF(index) {
     // const deleteTodo = (payload) => {
     // this.$store.dispatch("deleteTodo", payload);
@@ -145,7 +160,7 @@ export default {
         completed: false,
       };
 
-      (this.title = " "), (this.desc = " "), addTodo(item);
+      (this.title = ""), (this.desc = ""), addTodo(item);
       console.log("item:", item);
     },
   },
