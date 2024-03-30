@@ -15,6 +15,6 @@ export default {
 <style lang="scss" scoped>
 .NotesPageRoute {
   padding: 1rem;
-  background: chocolate;
+  // background: chocolate;
 }
 </style>

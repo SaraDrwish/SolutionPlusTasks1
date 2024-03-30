@@ -5,7 +5,7 @@
         <h2>Notes :</h2>
         <span @click="addModel = true">add</span>
         <!-- ///////////////////////////// -->
-        {{ notes }}
+        <!-- {{ notes }} -->
         <!-- ////////////////ADD Note POPUP Start///////////////// -->
         <div class="addcontainer" v-show="addModel">
           <div class="addpopupOverlay" @click="addModel = false"></div>
@@ -57,7 +57,7 @@
                 <li>
                   <span @click="editNot(n.id)"> edit </span>
                   <span @click="deletNote(n.id)"> delete </span>
-                  <span> complete </span>
+                  <span @click="toggleNote(n.id)"> complete </span>
                 </li>
               </ul>
             </div>
@@ -74,11 +74,14 @@
 <script>
 import { mapGetters } from "vuex";
 import shorten from "../filters/shorten";
+// const loclStoregKey = "loclStoreg";
+
 export default {
   data() {
     return {
       addModel: false,
       UpdateModel: false,
+      cmplt: false,
       addUpdateData: {
         id: "",
         title: "",
@@ -92,6 +95,13 @@ export default {
       notes: "notes",
     }),
   },
+  // created() {
+  // this.notes = JSON.parse(localStorage.getItem(loclStoregKey || "[]"));
+  // this.addUpdateData = JSON.parse(
+  // localStorage.getItem(loclStoregKey || "[]")
+  // );
+  // this.id = JSON.parse(localStorage.getItem(loclStoregKey || "[]"));
+  // },
   methods: {
     addNewNot() {
       this.$store.dispatch("addNew", this.addUpdateData).then((response) => {
@@ -105,6 +115,8 @@ export default {
             completed: false,
           };
         }
+        // localStorage.setItem(loclStoregKey, JSON.stringify(this.addUpdateData));
+        // localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
       });
     },
 
@@ -114,7 +126,16 @@ export default {
         this.addUpdateData.id = response[0].id;
         this.addUpdateData.title = response[0].title;
         this.addUpdateData.desc = response[0].desc;
+        this.addUpdateData.completed = response[0].completed;
         console.log("response......", response);
+        this.addUpdateData = {
+          id: "",
+          title: "",
+          desc: " ",
+          completed: false,
+        };
+        // localStorage.setItem(loclStoregKey, JSON.stringify(this.id));
+        // localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
       });
     },
     updateNote() {
@@ -124,12 +145,37 @@ export default {
           if (response) {
             this.UpdateModel = false;
           }
+          // localStorage.setItem(
+          //   loclStoregKey,
+          //   JSON.stringify(this.addUpdateData)
+          // );
+          // localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
         });
     },
+    // /////
+    // toggleNote() {
+    //   const cmplt = this.notes.completed;
+    //   this.$store.dispatch("toggleNoteComplteStored", cmplt);
+
+    //   if (cmplt == false) {
+    //     cmplt = !cmplt;
+    //   }
+    //   return cmplt;
+    // },
+    toggleNote() {
+      if (this.cmplt == false) {
+        this.cmplt == true;
+      }
+      return this.cmplt;
+    },
+
+    // ////
     deletNote(id) {
       this.$store.dispatch("delnote", id).then((response) => {
         alert("deleted ");
         console.log("deleted sussess ....", response);
+        // localStorage.setItem(loclStoregKey, JSON.stringify(this.id));
+        // localStorage.setItem(loclStoregKey, JSON.stringify(this.notes));
       });
     },
   },
@@ -152,7 +198,7 @@ ul {
   justify-content: center;
   align-content: center;
   margin: 1rem auto;
-  background-color: rgb(123, 82, 98);
+  background-color: rgb(223, 235, 236);
   padding: 2rem 1rem;
   color: rgb(226, 198, 209);
   border-radius: 2rem;
@@ -177,7 +223,7 @@ ul {
     height: 100%;
     padding: 1rem;
     .addpopupOverlay {
-      background: rgba(44, 77, 95, 0.945);
+      background: rgba(44, 77, 95, 0.9);
       width: 100%;
       height: 100%;
       position: relative;
@@ -185,6 +231,7 @@ ul {
       left: 0;
       padding: 1rem;
       margin: auto;
+      border-radius: 2rem;
     }
 
     .appPopContainer {
@@ -225,6 +272,7 @@ ul {
           border: none;
           padding: 1rem;
           outline: none;
+          border-radius: 1rem;
         }
       }
     }
@@ -232,8 +280,9 @@ ul {
 
   .bigNoteConteiner {
     position: relative;
-    width: 90%;
+    width: 94%;
     margin: 1rem auto;
+    text-align: center;
     padding: 2rem 1rem;
     background-color: rgb(194, 157, 170);
     border-radius: 2rem;
@@ -247,7 +296,7 @@ ul {
     }
   }
   .ul-CRUD-ptns {
-    width: 70%;
+    width: 84%;
     margin-left: auto;
 
     li {

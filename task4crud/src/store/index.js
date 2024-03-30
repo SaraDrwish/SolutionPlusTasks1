@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
+// const loclStoregKey = "loclStoreg";
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -19,11 +21,14 @@ export default new Vuex.Store({
   },
   mutations: {
     updateNoteStored(state, notaManipyol) {
-      state.notesElmnts.forEach((data, i) => {
+      notes.forEach((data, i) => {
         if (data.id == notaManipyol.id) {
-          state.notesElmnts[i] = JSON.parse(JSON.stringify(notaManipyol));
+          notes[i] = JSON.parse(JSON.stringify(notaManipyol));
+          console.log("notes..", notes);
+          console.log("state.notesElmnts..", state.notesElmnts);
         }
       });
+      // localStorage.setItem(loclStoregKey, JSON.stringify(this.notesElmnts));
     },
   },
   actions: {
@@ -33,32 +38,60 @@ export default new Vuex.Store({
       notaManipyol.id = id;
       state.notesElmnts.push(JSON.parse(JSON.stringify(notaManipyol)));
       console.log("addNew success ******* ");
-      return "addNew success ******* ";
+      // localStorage.setItem(loclStoregKey, JSON.stringify(this.notesElmnts));
+      return "addNew";
     },
 
     getNewnote({ state }, id) {
       let data = state.notesElmnts.filter((data) => data.id == id);
-      console.log("the not daata is ::::::: ", data);
+      // console.log(
+      //   "the not daata is ::::::: ",
+      //   data,
+      //   "..not elmnts ::::..",
+      //   notesElmnts
+      // );
+      // localStorage.setItem(loclStoregKey, JSON.stringify(this.notesElmnts));
+
       return data;
     },
 
     updateNoteStored({ commit, state }, notaManipyol) {
       state.notesElmnts.forEach((el) => {
-        console.log(notaManipyol);
+        console.log("notaManipyol::", notaManipyol);
         if (el.id == notaManipyol.id) {
           commit("updateNoteStored", notaManipyol);
         }
       });
+      // localStorage.setItem(loclStoregKey, JSON.stringify(this.notesElmnts));
+
       console.log("******updateNoteStored success******");
 
-      return "**updateNoteStored success**";
+      return "updateNoteStored";
     },
+    // /////////
+    // toggleNoteComplteStored({ commit, state }, notaManipyol) {
+    //   state.notesElmnts.forEach((elm) => {
+    //     console.log("toglecomplt::", notaManipyol);
+    //     if (elm.id == notaManipyol.id) {
+    //       commit("toglecomplt", notaManipyol);
+    //     }
+    //   });
+    //   console.log("******toglecomplt success******");
+    //   return "toglecomplt";
+    // },
+    togglN({ commit, state }, notaManipyol) {
+      state.notesElmnts.completed = !state.notesElmnts.completed;
+      return "togglN";
+    },
+    // ////////
     delnote({ state }, id) {
       state.notesElmnts.forEach((d, i) => {
         if (d.id == id) {
           state.notesElmnts.splice(i, 1);
         }
       });
+      // localStorage.setItem(loclStoregKey, JSON.stringify(this.notesElmnts));
+
       console.log("sussecc dell");
     },
   },
