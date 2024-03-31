@@ -54,18 +54,19 @@
                   </button>
 
                   <div
-                    class="flex gap-1 w-[80%] bg-slate-700 my-1 mx-auto text-orange-600 p-4 rounded-[1rem]"
+                    class="flex gap-1 w-[90%] bg-slate-700 my-1 mx-auto text-orange-600 p-4 rounded-[1rem]"
                   >
                     <p
-                      @click="editTodo"
-                      class="rounded-[1rem] bg-slate-100 p-2 outline-none w-[30%] m-1"
+                      @click="editTodo(index)"
+                      class="rounded-[1rem] bg-slate-100 p-2 outline-none w-[40%] m-1"
                       :class="item.completed ? 'bg-green-100' : 'bg-red-100 '"
                     >
                       {{ item.title | shorten }}
                     </p>
 
                     <p
-                      class="rounded-[1rem] p-2 bg-slate-100 outline-none w-[30%] m-1"
+                      @click="editTodo(index)"
+                      class="rounded-[1rem] p-2 bg-slate-100 outline-none w-[60%] m-1"
                       :class="item.completed ? 'bg-green-100' : 'bg-red-100 '"
                     >
                       {{ item.desc | shorten }}
@@ -141,7 +142,8 @@ export default {
         desc: this.desc,
         completed: false,
       };
-
+      // (title = this.updatedTodos.title),
+      //   (decs = this.updatedTodos.desc),
       (this.title = ""), (this.desc = ""), addTodo(item);
       console.log("item:", item);
     },
@@ -153,8 +155,21 @@ export default {
     // },
     editTodo(index) {
       this.$store.dispatch("getTodo", index).then((response) => {
-        this.updatedTodos.title = response[0].title;
-        this.updatedTodos.desc = response[0].desc;
+        // if (!this.title || !this.desc) return;
+        // const item = {
+        //    title: this.title.value ,
+        //   desc: this.desc,
+        //   completed: false,
+        // };
+
+        this.updatedTodos.title = response.title;
+
+        this.updatedTodos.desc = response.desc;
+        console.log(
+          "this.updatedTodos.title::",
+          this.updatedTodos.title,
+          this.updatedTodos.desc
+        );
       });
     },
     updateTodo() {

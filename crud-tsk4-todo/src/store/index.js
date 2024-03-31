@@ -34,7 +34,6 @@ export default new Vuex.Store({
       });
       localStorage.setItem("todosList", JSON.stringify(state.todosList));
     },
-
     // //
     updateTodo(state, payload) {
       state.todosList.forEach((elm, index) => {
@@ -43,6 +42,8 @@ export default new Vuex.Store({
           console.log("udpateeeeeee payload ");
         }
       });
+      console.log("udpateeeeeee payload ");
+
       localStorage.setItem("todosList", JSON.stringify(state.todosList));
     },
   },
