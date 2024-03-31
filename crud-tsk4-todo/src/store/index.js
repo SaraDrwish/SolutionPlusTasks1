@@ -6,7 +6,6 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     todosList: JSON.parse(localStorage.getItem("todosList")) || [],
-    // todosList: [{ title: "", desc: "" }],
   },
   getters: {
     todosList: (state) => state.todosList,
@@ -29,24 +28,19 @@ export default new Vuex.Store({
       );
       state.todosList = state.todosList.filter((elm, index) => {
         if (index == payload) {
-          // state.todosList[payload].completed = true;
-          // console.log("::elm.completed::::", elm.completed, "::elmmmmm:::::");
-
           elm.completed = true;
-          // return elm;
         }
-        // console.log("elm.completed::", (elm.completed = true));
-
-        // return (elm.completed = true);
         return elm;
-        // return state.todosList[payload].completed;
       });
       localStorage.setItem("todosList", JSON.stringify(state.todosList));
     },
+
+    // //
     updateTodo(state, payload) {
-      state.todosList.forEach((data, i) => {
-        if (data.id == payload.id) {
-          state.todosList[i] = JSON.parse(JSON.stringify(payload));
+      state.todosList.forEach((elm, index) => {
+        if (index == payload) {
+          state.todosList[index] = JSON.parse(JSON.stringify(payload));
+          console.log("udpateeeeeee payload ");
         }
       });
       localStorage.setItem("todosList", JSON.stringify(state.todosList));
@@ -62,16 +56,25 @@ export default new Vuex.Store({
     compeletTodo({ commit }, payload) {
       commit("compeletTodo", payload);
     },
+    // //////////////////////////////////////////////////////////////////
+    getTodo({ state }, index) {
+      let data = state.todosList.filter((data) => data.index == index);
+      return data;
+    },
+    ///
     updateTodo({ commit, state }, payload) {
-      state.todosList.forEach((el) => {
-        if (el.id == payload.id) {
+      state.todosList.forEach((elm) => {
+        if (elm == payload) {
           commit("updateTodo", payload);
         }
       });
       localStorage.setItem("todosList", JSON.stringify(state.todosList));
-      console.log("****** updated success******");
+
+      console.log("******updateTodo success******");
       return "sucsess";
     },
+
+    // ///
   },
   modules: {},
 });

@@ -57,17 +57,16 @@
                     class="flex gap-1 w-[80%] bg-slate-700 my-1 mx-auto text-orange-600 p-4 rounded-[1rem]"
                   >
                     <p
+                      @click="editTodo"
                       class="rounded-[1rem] bg-slate-100 p-2 outline-none w-[30%] m-1"
-                      placeholder="title"
                     >
-                      {{ item.title }}
+                      {{ item.title | shorten }}
                     </p>
 
                     <p
                       class="rounded-[1rem] p-2 bg-slate-100 outline-none w-[30%] m-1"
-                      placeholder="title"
                     >
-                      {{ item.desc }}
+                      {{ item.desc | shorten }}
                     </p>
                   </div>
 
@@ -99,6 +98,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import shorten from "../filters/shorten";
 export default {
   name: "TodoView",
   data() {
@@ -106,6 +106,11 @@ export default {
       title: "",
       desc: "",
       completed: false,
+      updatedTodos: {
+        title: "",
+        desc: " ",
+        completed: false,
+      },
     };
   },
   computed: {
@@ -122,14 +127,6 @@ export default {
     compeletTodo(payload) {
       this.$store.dispatch("compeletTodo", payload);
       console.log("compeletTodoooo :", payload);
-
-      // return payload;
-    },
-
-    updateTodo(payload) {
-      this.$store.dispatch("compeletTodo", payload);
-      console.log("updateTodo .....!!!!!!! ");
-      // return payload;
     },
 
     AddTodo() {
@@ -146,6 +143,22 @@ export default {
       (this.title = ""), (this.desc = ""), addTodo(item);
       console.log("item:", item);
     },
+
+    // /////////////////////////////////////////////////////////
+    //    updateTodo(payload) {
+    //   this.$store.dispatch("compeletTodo", payload);
+    //   console.log("updateTodo .....!!!!!!! ");
+    // },
+    editTodo(index) {
+      this.$store.dispatch("getTodo", index).then((response) => {
+        this.updatedTodos.title = response[0].title;
+        this.updatedTodos.desc = response[0].desc;
+      });
+    },
+    updateTodo() {
+      this.$store.dispatch("updateTodo", this.updatedTodos);
+    },
+    // ///
   },
 };
 </script>
