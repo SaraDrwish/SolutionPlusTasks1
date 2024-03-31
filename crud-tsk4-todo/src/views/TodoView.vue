@@ -59,12 +59,14 @@
                     <p
                       @click="editTodo"
                       class="rounded-[1rem] bg-slate-100 p-2 outline-none w-[30%] m-1"
+                      :class="item.completed ? 'bg-green-100' : 'bg-red-100 '"
                     >
                       {{ item.title | shorten }}
                     </p>
 
                     <p
                       class="rounded-[1rem] p-2 bg-slate-100 outline-none w-[30%] m-1"
+                      :class="item.completed ? 'bg-green-100' : 'bg-red-100 '"
                     >
                       {{ item.desc | shorten }}
                     </p>
