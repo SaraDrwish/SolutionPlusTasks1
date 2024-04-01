@@ -43,7 +43,7 @@
             <div
               class="flex gap-4 w-[90%] bg-[#a7b2b5] p-2 my-4 mx-auto items-center justify-evenly rounded-[1rem]"
             >
-              <p class="w-[5%] p-1 m-auto text-center">-{{ index }}-</p>
+              <p class="w-[5%] p-1 m-auto text-center">-{{ index + 1 }}-</p>
 
               <button
                 :disabled="item.completed"
@@ -60,14 +60,14 @@
                   class="rounded-[1rem] bg-slate-100 p-2 outline-none w-[40%] m-1"
                   :class="item.completed ? 'bg-green-400' : 'bg-red-100 '"
                 >
-                  {{ item.title | shorten }}
+                  {{ item.title }}
                 </p>
 
                 <p
                   class="rounded-[1rem] p-2 bg-slate-100 outline-none w-[60%] m-1"
                   :class="item.completed ? 'bg-green-400' : 'bg-red-100 '"
                 >
-                  {{ item.desc | shorten }}
+                  {{ item.desc }}
                 </p>
               </div>
 
@@ -127,13 +127,12 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import shorten from "../filters/shorten";
+// import shorten from "../filters/shorten";
 export default {
   name: "TodoView",
   data() {
     return {
       title: "",
-
       desc: "",
       completed: false,
       updatedTodos: {
@@ -169,21 +168,27 @@ export default {
         completed: false,
       };
       (this.title = ""), (this.desc = ""), addTodo(item);
-      console.log("item:", item);
+      // console.log("item:::", item);
     },
     // /////////////////////////////////////////////////////////
     editTodo(payload) {
       this.popmodel = true;
-      this.$store.dispatch("editTodo", payload).then((response) => {
-        this.updatedTodos.title = response.title;
-        this.updatedTodos.desc = response.desc;
-        console.log("this.updatedTodos.title::", this.updatedTodos.title);
-      });
+      this.$store.dispatch("editTodo", payload);
+      this.updatedTodos.title = this.item.title;
+      console.log(
+        "this.updatedTodos.desc = response.desc",
+        this.updatedTodos.desc,
+        "--"
+      );
+
+      // this.updatedTodos.title = payload.title;
+      // this.item.desc = payload.desc;
+      // console.log("this.iem.title..", this.item.title);
     },
     updateTodo(payload) {
       this.popmodel = false;
       this.$store.dispatch("updateTodo", payload);
-      console.log("updated from vue sucss");
+      console.log("updated from vue sucss , and pal:", payload);
     },
     // ///
   },
