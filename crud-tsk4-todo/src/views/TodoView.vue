@@ -47,7 +47,7 @@
                 >
                   <button
                     :disabled="item.completed"
-                    :class="item.completed ? 'bg-green-400' : 'bg-red-400 '"
+                    :class="item.completed ? 'bg-green-300' : 'bg-red-400 '"
                     class="p-2 mx-auto my-1 text-center outline-none text-orange-900 rounded-[5rem]"
                     @click="compeletTodo(index)"
                   >
@@ -82,7 +82,7 @@
                         </div>
 
                         <input
-                          @click="editTodo"
+                          @click="updateTodo(index)"
                           class="border-2 border-red-400 p-2 cursor-pointer text-red-800 mt-9"
                           type="submit"
                           value="Update"
@@ -92,17 +92,15 @@
                     </div>
                     <!-- ////// -->
                     <p
-                      @click="editTodo(index)"
                       class="rounded-[1rem] bg-slate-100 p-2 outline-none w-[40%] m-1"
-                      :class="item.completed ? 'bg-green-300' : 'bg-red-300 '"
+                      :class="item.completed ? 'bg-green-400' : 'bg-red-100 '"
                     >
                       {{ item.title | shorten }}
                     </p>
 
                     <p
-                      @click="editTodo(index)"
                       class="rounded-[1rem] p-2 bg-slate-100 outline-none w-[60%] m-1"
-                      :class="item.completed ? 'bg-green-300' : 'bg-red-300 '"
+                      :class="item.completed ? 'bg-green-400' : 'bg-red-100 '"
                     >
                       {{ item.desc | shorten }}
                     </p>
@@ -118,9 +116,9 @@
                     />
 
                     <input
-                      @click="updateTodo(index)"
+                      @click="editTodo(index)"
                       class="p-1 cursor-pointer"
-                      type="button"
+                      type="submit"
                       value="Edit"
                     />
                   </div>
@@ -215,7 +213,7 @@ export default {
       });
     },
     updateTodo() {
-      this.popmodel = true;
+      // this.popmodel = true;
 
       this.$store.dispatch("updateTodo", this.updatedTodos);
       this.popmodel = false;
