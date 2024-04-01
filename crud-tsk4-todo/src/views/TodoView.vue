@@ -175,10 +175,8 @@ export default {
     // /////////////////////////////////////////////////////////
     editTodo(payload) {
       this.popmodel = true;
-
       this.$store.dispatch("editTodo", payload).then((response) => {
-        this.updatedTodos.title = response.title;
-
+        this.item.title = response.title;
         this.updatedTodos.desc = response.desc;
         console.log("this.updatedTodos.title::", this.updatedTodos.title);
       });

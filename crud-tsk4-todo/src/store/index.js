@@ -22,9 +22,9 @@ export default new Vuex.Store({
       localStorage.setItem("todosList", JSON.stringify(state.todosList));
     },
     // ////
-    editTodo(state, payload) {
-      localStorage.setItem("todosList", JSON.stringify(state.todosList));
-    },
+    // editTodo(state, payload) {
+    //   localStorage.setItem("todosList", JSON.stringify(state.todosList));
+    // },
     // ////
     compeletTodo(state, payload) {
       console.log(
@@ -40,11 +40,20 @@ export default new Vuex.Store({
       localStorage.setItem("todosList", JSON.stringify(state.todosList));
     },
     // //
+    // updateTodo(state, payload) {
+    //   state.todosList[payload.index] = payload.index;
+    //   localStorage.setItem("todosList", JSON.stringify(state.todosList));
+    // },
+    ///////
     updateTodo(state, payload) {
-      // state.todosList[payload.index] = payload.index;
-
+      state.todosList.forEach((data, i) => {
+        if (data.id == payload.id) {
+          state.todosList[i] = JSON.parse(JSON.stringify(payload));
+        }
+      });
       localStorage.setItem("todosList", JSON.stringify(state.todosList));
     },
+    // ////
   },
   actions: {
     addTodo({ commit }, payload) {
@@ -57,19 +66,37 @@ export default new Vuex.Store({
       commit("compeletTodo", payload);
     },
     // //////////////////////////////////////////////////////////////////
+    // editTodo({ state }, index) {
+    //   // commit("editTodo", payload);
+    //   return state.todosList[index];
+    //   localStorage.setItem("todosList", JSON.stringify(state.todosList));
+    // },
+    // ////////
     editTodo({ state }, index) {
-      commit("editTodo", payload);
-      localStorage.setItem("todosList", JSON.stringify(state.todosList));
+      let data = state.todosList.filter((data) => data.index == index);
+      return data;
     },
+    // ////////
 
+    // updateTodo({ commit, state }, payload) {
+    //   commit("updateTodo", payload);
+    //   localStorage.setItem("todosList", JSON.stringify(state.todosList));
+    //   console.log("******updateTodo success******");
+    //   return "sucsess";
+    // },
+    // ////
     updateTodo({ commit, state }, payload) {
-      commit("updateTodo", payload);
+      state.todosList.forEach((el) => {
+        if (el == payload) {
+          commit("updateTodo", payload);
+        }
+      });
       localStorage.setItem("todosList", JSON.stringify(state.todosList));
-      console.log("******updateTodo success******");
-      return "sucsess";
-    },
 
-    // ///
+      console.log("******updateNoteStored success******");
+      return "sucsess updateNoteStored";
+      // ///
+    },
   },
   modules: {},
 });
