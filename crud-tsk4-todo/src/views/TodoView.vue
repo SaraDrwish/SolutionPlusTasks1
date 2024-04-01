@@ -157,7 +157,7 @@ export default {
     },
     compeletTodo(payload) {
       this.$store.dispatch("compeletTodo", payload);
-      console.log("compeletTodoooo :", payload);
+      // console.log("compeletTodoooo :", payload);
     },
     AddTodo() {
       const addTodo = (payload) => {
@@ -175,16 +175,20 @@ export default {
     // /////////////////////////////////////////////////////////
     editTodo(payload) {
       this.popmodel = true;
-      this.$store.dispatch("editTodo", payload).then((response) => {
-        this.item.title = response.title;
+      this.$store.dispatch("getTodo", payload).then((response) => {
+        this.updatedTodos.title = response.title;
         this.updatedTodos.desc = response.desc;
-        console.log("this.updatedTodos.title::", this.updatedTodos.title);
+        // console.log("this.updatedTodos.title::", this.updatedTodos.title);
       });
     },
-    updateTodo(payload) {
+    // updateTodo(payload) {
+    //   this.popmodel = false;
+    //   this.$store.dispatch("updateTodo", payload);
+    //   console.log("updated from vue sucss");
+    // },
+    updateTodo() {
       this.popmodel = false;
-      this.$store.dispatch("updateTodo", payload);
-      console.log("updated from vue sucss");
+      this.$store.dispatch("updateTodo", this.updatedTodos);
     },
     // ///
   },
