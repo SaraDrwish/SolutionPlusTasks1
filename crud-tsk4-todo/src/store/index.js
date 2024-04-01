@@ -36,14 +36,18 @@ export default new Vuex.Store({
     },
     // //
     updateTodo(state, payload) {
-      state.todosList.forEach((elm, index) => {
-        if (index == payload) {
-          state.todosList[index] = JSON.parse(JSON.stringify(payload));
-          console.log("udpateeeeeee payload ");
-        }
-      });
-      console.log("udpateeeeeee payload ");
+      //   state.todosList.forEach((elm, index) => {
+      //     if (index == payload) {
+      //       state.todosList[index] = JSON.parse(JSON.stringify(payload));
+      //       console.log("udpateeeeeee payload ");
+      //     }
+      //   });
+      //   console.log("udpateeeeeee payload ");
 
+      //   localStorage.setItem("todosList", JSON.stringify(state.todosList));
+      // },
+
+      state.todosList[payload.index] = payload.index;
       localStorage.setItem("todosList", JSON.stringify(state.todosList));
     },
   },
@@ -59,16 +63,19 @@ export default new Vuex.Store({
     },
     // //////////////////////////////////////////////////////////////////
     getTodo({ state }, index) {
-      let data = state.todosList.filter((data) => data.index == index);
-      return data;
+      // let data = state.todosList.filter((data) => data.index == index);
+      // return data;
+      return state.todosList[index];
     },
     ///
     updateTodo({ commit, state }, payload) {
-      state.todosList.forEach((elm) => {
-        if (elm == payload) {
-          commit("updateTodo", payload);
-        }
-      });
+      // state.todosList.forEach((elm) => {
+      //   if (elm == payload) {
+      //     commit("updateTodo", payload);
+      //   }
+      // });
+      commit("updateTodo", payload);
+
       localStorage.setItem("todosList", JSON.stringify(state.todosList));
 
       console.log("******updateTodo success******");

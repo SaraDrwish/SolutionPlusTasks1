@@ -1,6 +1,7 @@
 <template>
   <div class="todo">
     <h2 class="text-3xl my-4 font-bold text-red-500">TODO</h2>
+
     <div class="container">
       <div class="p-1 mx-auto w-[80%]">
         <div class="">
@@ -46,7 +47,7 @@
                 >
                   <button
                     :disabled="item.completed"
-                    :class="item.completed ? 'bg-green-300' : 'bg-red-400 '"
+                    :class="item.completed ? 'bg-green-400' : 'bg-red-400 '"
                     class="p-2 mx-auto my-1 text-center outline-none text-orange-900 rounded-[5rem]"
                     @click="compeletTodo(index)"
                   >
@@ -56,10 +57,44 @@
                   <div
                     class="flex gap-1 w-[90%] bg-slate-700 my-1 mx-auto text-orange-600 p-4 rounded-[1rem]"
                   >
+                    <!-- ////// -->
+                    <div class="" v-show="popmodel">
+                      <div
+                        class="popup-compon-lay"
+                        @click="popmodel = false"
+                      ></div>
+
+                      <div class="popup-compon p-4 flex flex-col">
+                        <p class="mb-8 text-red-700">Edit the note</p>
+                        <div class="p-4 flex gap-4">
+                          <label>title:</label>
+                          <input
+                            class="p-2 rounded-[1rem]"
+                            type="text"
+                            v-model="item.title"
+                          />
+                          <label>description:</label>
+                          <input
+                            class="p-2 rounded-[1rem]"
+                            type="text"
+                            v-model="item.desc"
+                          />
+                        </div>
+
+                        <input
+                          @click="editTodo"
+                          class="border-2 border-red-400 p-2 cursor-pointer text-red-800 mt-9"
+                          type="submit"
+                          value="Update"
+                        />
+                        <!-- <button @click="editTodo" >Update</button> -->
+                      </div>
+                    </div>
+                    <!-- ////// -->
                     <p
                       @click="editTodo(index)"
                       class="rounded-[1rem] bg-slate-100 p-2 outline-none w-[40%] m-1"
-                      :class="item.completed ? 'bg-green-100' : 'bg-red-100 '"
+                      :class="item.completed ? 'bg-green-300' : 'bg-red-300 '"
                     >
                       {{ item.title | shorten }}
                     </p>
@@ -67,7 +102,7 @@
                     <p
                       @click="editTodo(index)"
                       class="rounded-[1rem] p-2 bg-slate-100 outline-none w-[60%] m-1"
-                      :class="item.completed ? 'bg-green-100' : 'bg-red-100 '"
+                      :class="item.completed ? 'bg-green-300' : 'bg-red-300 '"
                     >
                       {{ item.desc | shorten }}
                     </p>
@@ -102,8 +137,12 @@
 <script>
 import { mapGetters } from "vuex";
 import shorten from "../filters/shorten";
+// import PopUp from "@/components/PopUp.vue";
 export default {
   name: "TodoView",
+  // components: {
+  //   PopUp,
+  // },
   data() {
     return {
       title: "",
@@ -114,6 +153,7 @@ export default {
         desc: " ",
         completed: false,
       },
+      popmodel: false,
     };
   },
   computed: {
@@ -154,13 +194,15 @@ export default {
     //   console.log("updateTodo .....!!!!!!! ");
     // },
     editTodo(index) {
+      this.popmodel = true;
+
       this.$store.dispatch("getTodo", index).then((response) => {
-        // if (!this.title || !this.desc) return;
-        // const item = {
-        //    title: this.title.value ,
-        //   desc: this.desc,
-        //   completed: false,
-        // };
+        //   // if (!this.title || !this.desc) return;
+        //   // const item = {
+        //   //    title: this.title.value ,
+        //   //   desc: this.desc,
+        //   //   completed: false,
+        //   // };
 
         this.updatedTodos.title = response.title;
 
@@ -173,7 +215,10 @@ export default {
       });
     },
     updateTodo() {
+      this.popmodel = true;
+
       this.$store.dispatch("updateTodo", this.updatedTodos);
+      this.popmodel = false;
     },
     // ///
   },
@@ -189,5 +234,30 @@ $base-color: #a7b2b5;
   padding: 1rem;
   margin: auto;
   border-radius: 2rem;
+}
+.popup-compon {
+  overflow: hidden;
+  width: 60%;
+  height: 50%;
+  padding: 1rem;
+  background-color: rgb(147, 195, 159);
+  color: rgb(108, 108, 131);
+  border-radius: 2rem;
+  position: absolute;
+  top: 40%;
+  left: 20%;
+  font-size: 22px;
+  font-weight: bold;
+  display: flex;
+}
+.popup-compon-lay {
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  overflow: hidden;
+  background-color: rgba(110, 121, 139, 0.87);
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 </style>
