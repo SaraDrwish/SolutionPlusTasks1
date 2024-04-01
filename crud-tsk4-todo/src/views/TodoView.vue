@@ -125,16 +125,15 @@
     </div>
   </div>
 </template>
-
 <script>
 import { mapGetters } from "vuex";
 import shorten from "../filters/shorten";
 export default {
   name: "TodoView",
-
   data() {
     return {
       title: "",
+
       desc: "",
       completed: false,
       updatedTodos: {
@@ -157,7 +156,7 @@ export default {
     },
     compeletTodo(payload) {
       this.$store.dispatch("compeletTodo", payload);
-      // console.log("compeletTodoooo :", payload);
+      console.log("compeletTodoooo :", payload);
     },
     AddTodo() {
       const addTodo = (payload) => {
@@ -175,26 +174,21 @@ export default {
     // /////////////////////////////////////////////////////////
     editTodo(payload) {
       this.popmodel = true;
-      this.$store.dispatch("getTodo", payload).then((response) => {
+      this.$store.dispatch("editTodo", payload).then((response) => {
         this.updatedTodos.title = response.title;
         this.updatedTodos.desc = response.desc;
-        // console.log("this.updatedTodos.title::", this.updatedTodos.title);
+        console.log("this.updatedTodos.title::", this.updatedTodos.title);
       });
     },
-    // updateTodo(payload) {
-    //   this.popmodel = false;
-    //   this.$store.dispatch("updateTodo", payload);
-    //   console.log("updated from vue sucss");
-    // },
-    updateTodo() {
+    updateTodo(payload) {
       this.popmodel = false;
-      this.$store.dispatch("updateTodo", this.updatedTodos);
+      this.$store.dispatch("updateTodo", payload);
+      console.log("updated from vue sucss");
     },
     // ///
   },
 };
 </script>
-
 <style lang="scss" scoped>
 $base-color: #a7b2b5;
 .todo {

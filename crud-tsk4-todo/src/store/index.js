@@ -71,11 +71,11 @@ export default new Vuex.Store({
       commit("compeletTodo", payload);
     },
     // //////////////////////////////////////////////////////////////////
-    // editTodo({ state }, index) {
-    //   // commit("editTodo", payload);
-    //   return state.todosList[index];
-    //   localStorage.setItem("todosList", JSON.stringify(state.todosList));
-    // },
+    edTodo({ state }, index) {
+      localStorage.setItem("todosList", JSON.stringify(state.todosList));
+      // commit("editTodo", payload);
+      return state.todosList[index];
+    },
     // ////////
     // edTodo({ state }, index) {
     //   let data = state.todosList.filter((data) => data.index == index);
@@ -104,9 +104,9 @@ export default new Vuex.Store({
     // },
 
     // ////////////////////////////////
-    getTodo({ state }, index) {
-      return state.todosList[index];
-    },
+    // getTodo({ state }, index) {
+    //   return state.todosList[index];
+    // },
     ///
     updateTodo({ commit, state }, payload) {
       commit("updateTodo", payload);
