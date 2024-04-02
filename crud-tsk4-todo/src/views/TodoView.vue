@@ -114,7 +114,7 @@
               </div>
 
               <input
-                @click="updateTodo(index)"
+                @click="updateTodo(selectedIndex)"
                 class="border-2 border-red-400 px-8 py-3 cursor-pointer text-red-400 mt-9"
                 type="submit"
                 value="Update"
@@ -143,7 +143,8 @@ export default {
         completed: false,
       },
       popmodel: false,
-      selectedItem: null,
+      selectedItem: "",
+      selectedIndex: "",
     };
   },
   computed: {
@@ -196,7 +197,8 @@ export default {
     // //////////////
     editTodo(index) {
       this.popmodel = true;
-      this.selectedItem = this.todosList[index];
+      this.selectedItem = { ...this.todosList[index] };
+      this.selectedIndex = index;
     },
 
     updateTodo(index) {
