@@ -105,7 +105,7 @@
               </div>
 
               <input
-                @click="updateTodo(index)"
+                @click="updateTodo(selectedIndex)"
                 class="border-2 border-red-400 px-8 py-3 cursor-pointer text-red-400 mt-9"
                 type="submit"
                 value="Update"
@@ -134,8 +134,8 @@ export default {
         completed: false,
       },
       popmodel: false,
-      selectedItem: "",
-      // selectedIndex: "",
+      selectedItem: { title: "", desc: "" },
+      selectedIndex: null,
     };
   },
   computed: {
@@ -146,11 +146,9 @@ export default {
   methods: {
     deleteTodo(payload) {
       this.$store.dispatch("deleteTodo", payload);
-      console.log("deleteTodo :::::working paylod ::", payload);
     },
     compeletTodo(payload) {
       this.$store.dispatch("compeletTodo", payload);
-      console.log("compeletTodoooo :", payload);
     },
     AddTodo() {
       const addTodo = (payload) => {
@@ -164,19 +162,23 @@ export default {
       };
       (this.title = ""), (this.desc = ""), addTodo(item);
     },
-
     editTodo(index) {
       this.popmodel = true;
       this.selectedItem = { ...this.todosList[index] };
-      this.todosList[index] = index;
+      this.selectedIndex = index;
     },
-    updateTodo(index) {
-      this.popmodel = false;
-      this.$store.dispatch("updateTodo", {
-        index,
-        updatedTodo: this.selectedItem,
-      });
+    updateTodo() {
+      if (this.selectedIndex !== null) {
+        this.$store.dispatch("updateTodo", {
+          index: this.selectedIndex,
+          el: this.selectedItem,
+        });
+        this.popmodel = false;
+        this.selectedItem = { title: "", desc: "" };
+        this.selectedIndex = null;
+      }
     },
+
     // ///////////////
   },
 };
@@ -212,7 +214,7 @@ $base-color: rgba(216, 229, 233, 0.929);
   height: 100%;
   padding: 1rem;
   // overflow: hidden;
-  background-color: rgba(206, 216, 230, 0.7);
+  background-color: rgba(206, 216, 230, 0.363);
   position: fixed;
   top: 0;
   left: 0;
