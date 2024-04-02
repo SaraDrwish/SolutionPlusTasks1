@@ -36,16 +36,16 @@ export default new Vuex.Store({
 
     // //////////////////////
     editTodo(state, payload) {
-      const { index, updatedTodo } = payload;
-      state.todosList[index] = updatedTodo;
+      const { index, el } = payload;
+      state.todosList[index] = el;
       localStorage.setItem("todosList", JSON.stringify(state.todosList));
     },
     updateTodo(state, payload) {
-      const { index, updatedTodo } = payload;
-      // Update the todo item at the provided index with the updatedTodo object
-      state.todosList[index] = updatedTodo;
+      const { index, el } = payload;
+      state.todosList[index] = el;
       localStorage.setItem("todosList", JSON.stringify(state.todosList));
     },
+
     // ////////////////
     // editTodo(state, payload) {
     //   state.todosList = state.todosList.filter((el, index) => {

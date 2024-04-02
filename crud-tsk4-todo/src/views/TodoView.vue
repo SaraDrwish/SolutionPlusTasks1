@@ -43,15 +43,23 @@
             <div
               class="flex gap-4 w-[90%] bg-[#d2dee1] p-2 my-4 mx-auto items-center justify-evenly rounded-[1rem]"
             >
-              <p class="w-[5%] p-1 m-auto text-center">-{{ index + 1 }}-</p>
+              <!-- <p class="w-[5%] p-1 m-auto text-center">-{{ index + 1 }}-</p> -->
 
-              <button
+              <!-- <button
                 :disabled="item.completed"
                 :class="item.completed ? 'bg-green-300' : 'bg-red-400 '"
                 class="p-2 mx-auto my-1 text-center outline-none text-orange-800 rounded-[5rem]"
                 @click="compeletTodo(index)"
               >
                 {{ item.completed ? "completed" : "incompleted" }}
+              </button> -->
+              <button
+                :disabled="item && item.completed"
+                :class="item && item.completed ? 'bg-green-300' : 'bg-red-400 '"
+                class="p-2 mx-auto my-1 text-center outline-none text-orange-800 rounded-[5rem]"
+                @click="compeletTodo(index)"
+              >
+                {{ item && item.completed ? "completed" : "incompleted" }}
               </button>
               <div
                 class="flex gap-1 w-[90%] bg-slate-700 my-1 mx-auto text-orange-600 p-4 rounded-[1rem]"
@@ -60,8 +68,8 @@
                   class="rounded-[1rem] bg-slate-100 p-2 outline-none w-[40%] m-1"
                   :class="item.completed ? 'bg-green-400' : 'bg-red-100 '"
                 >
-                  {{ item.title }}
-                  <!-- {{ item.title | shorten }} -->
+                  <!-- {{ item.title }} -->
+                  {{ item.title | shorten }}
                 </p>
 
                 <p
@@ -82,7 +90,7 @@
                 />
 
                 <input
-                  @click="editTodo(index)"
+                  @click="editTodo(index, item)"
                   class="p-1 cursor-pointer"
                   type="submit"
                   value="Edit"
@@ -96,25 +104,25 @@
 
             <div class="popup-compon p-4 flex flex-col">
               <p class="mb-8 text-red-400">Edit the note</p>
-              <p>----{{ index }}----</p>
+              <!-- <p>----{{ index }}----</p> -->
 
               <div class="p-4 flex gap-4 items-center text-orange-400">
                 <label>title:</label>
                 <input
                   class="p-1 rounded-[1rem] text-slate-400"
                   type="text"
-                  v-model="selectedItem.title"
+                  v-model="item.title"
                 />
                 <label>description:</label>
                 <input
                   class="p-1 rounded-[1rem] text-slate-400"
                   type="text"
-                  v-model="selectedItem.desc"
+                  v-model="item.desc"
                 />
               </div>
 
               <input
-                @click="updateTodo(selectedIndex)"
+                @click="updateTodo(index)"
                 class="border-2 border-red-400 px-8 py-3 cursor-pointer text-red-400 mt-9"
                 type="submit"
                 value="Update"
@@ -143,8 +151,8 @@ export default {
         completed: false,
       },
       popmodel: false,
-      selectedItem: "",
-      selectedIndex: "",
+      // selectedItem: "",
+      // selectedIndex: "",
     };
   },
   computed: {
@@ -195,20 +203,36 @@ export default {
     //   );
     // },
     // //////////////
-    editTodo(index) {
-      this.popmodel = true;
-      this.selectedItem = { ...this.todosList[index] };
-      this.selectedIndex = index;
-    },
+    // editTodo(index) {
+    //   this.popmodel = true;
+    //   this.selectedItem = { ...this.todosList[index] };
+    //   this.selectedIndex = index;
+    // },
 
-    updateTodo(index) {
-      this.popmodel = false;
-      this.$store.dispatch("updateTodo", {
-        index,
-        updatedTodo: this.selectedItem,
+    // updateTodo(index) {
+    //   this.popmodel = false;
+    //   this.$store.dispatch("updateTodo", {
+    //     index,
+    //     updatedTodo: this.selectedItem,
+    //   });
+    // },
+    // /////////////////////////
+    // editTodo(index) {
+    //   this.popmodel = true;
+    //   // this.updateTodo(index, this.todosList[index]);
+    //   this.updateTodo(index, item);
+    // },
+    editTodo(index, item) {
+      this.popmodel = true;
+      this.$nextTick(() => {
+        this.updateTodo(index, item);
       });
     },
-    // ///////////////
+    updateTodo(index, el) {
+      this.popmodel = false;
+      this.$store.dispatch("updateTodo", { index, el });
+    },
+    // //////////////////////////////////
   },
 };
 </script>
