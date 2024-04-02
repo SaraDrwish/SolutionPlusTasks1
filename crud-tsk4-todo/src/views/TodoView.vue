@@ -24,7 +24,7 @@
                   />
                 </div>
                 <input
-                  class="cursor-pointer text-red-400 border-2 border-red-400 p-2"
+                  class="cursor-pointer text-red-400 border-2 rounded-[1rem] border-red-400 py-2 px-6 mx-4"
                   type="submit"
                   value="Add"
                 />
@@ -41,14 +41,14 @@
         <ul v-for="(item, index) in todosList" :key="index">
           <li>
             <div
-              class="flex gap-4 w-[90%] bg-[#a7b2b5] p-2 my-4 mx-auto items-center justify-evenly rounded-[1rem]"
+              class="flex gap-4 w-[90%] bg-[#d2dee1] p-2 my-4 mx-auto items-center justify-evenly rounded-[1rem]"
             >
               <p class="w-[5%] p-1 m-auto text-center">-{{ index + 1 }}-</p>
 
               <button
                 :disabled="item.completed"
                 :class="item.completed ? 'bg-green-300' : 'bg-red-400 '"
-                class="p-2 mx-auto my-1 text-center outline-none text-orange-900 rounded-[5rem]"
+                class="p-2 mx-auto my-1 text-center outline-none text-orange-800 rounded-[5rem]"
                 @click="compeletTodo(index)"
               >
                 {{ item.completed ? "completed" : "incompleted" }}
@@ -61,13 +61,15 @@
                   :class="item.completed ? 'bg-green-400' : 'bg-red-100 '"
                 >
                   {{ item.title }}
+                  <!-- {{ item.title | shorten }} -->
                 </p>
 
                 <p
                   class="rounded-[1rem] p-2 bg-slate-100 outline-none w-[60%] m-1"
                   :class="item.completed ? 'bg-green-400' : 'bg-red-100 '"
                 >
-                  {{ item.desc }}
+                  <!-- {{ item.desc }} -->
+                  {{ item.desc | shorten }}
                 </p>
               </div>
 
@@ -89,7 +91,7 @@
             </div>
           </li>
           <!-- //////////////////////////// -->
-          <div class="" v-show="popmodel">
+          <div v-show="popmodel">
             <div class="popup-compon-lay" @click="popmodel = false"></div>
 
             <div class="popup-compon p-4 flex flex-col">
@@ -101,19 +103,19 @@
                 <input
                   class="p-1 rounded-[1rem] text-slate-400"
                   type="text"
-                  v-model="item.title"
+                  v-model="selectedItem.title"
                 />
                 <label>description:</label>
                 <input
                   class="p-1 rounded-[1rem] text-slate-400"
                   type="text"
-                  v-model="item.desc"
+                  v-model="selectedItem.desc"
                 />
               </div>
 
               <input
                 @click="updateTodo(index)"
-                class="border-2 border-red-400 p-2 cursor-pointer text-red-400 mt-9"
+                class="border-2 border-red-400 px-8 py-3 cursor-pointer text-red-400 mt-9"
                 type="submit"
                 value="Update"
               />
@@ -127,7 +129,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-// import shorten from "../filters/shorten";
+import shorten from "../filters/shorten";
 export default {
   name: "TodoView",
   data() {
@@ -141,6 +143,7 @@ export default {
         completed: false,
       },
       popmodel: false,
+      selectedItem: null,
     };
   },
   computed: {
@@ -171,31 +174,44 @@ export default {
       // console.log("item:::", item);
     },
     // /////////////////////////////////////////////////////////
-    editTodo(payload) {
-      this.popmodel = true;
-      this.$store.dispatch("editTodo", payload);
-      this.updatedTodos.title = this.item.title;
-      console.log(
-        "this.updatedTodos.desc = response.desc",
-        this.updatedTodos.desc,
-        "--"
-      );
+    // editTodo(payload) {
+    //   this.popmodel = true;
+    //   this.$store.dispatch("getTodo", payload);
+    //   // this.updatedTodos.title = this.item.title;
 
-      // this.updatedTodos.title = payload.title;
-      // this.item.desc = payload.desc;
-      // console.log("this.iem.title..", this.item.title);
+    //   console.log(
+    //     "====this.updatedTodos.desc = response.desc====",
+    //     this.updatedTodos.desc,
+    //     "===="
+    //   );
+    // },
+    // updateTodo() {
+    //   this.popmodel = false;
+    //   this.$store.dispatch("updateTodo", this.updatedTodos);
+    //   console.log(
+    //     "updated from vue sucss , and ::::::payllllllll::::indxxxx:",
+    //     this.updatedTodos
+    //   );
+    // },
+    // //////////////
+    editTodo(index) {
+      this.popmodel = true;
+      this.selectedItem = this.todosList[index];
     },
-    updateTodo(payload) {
+
+    updateTodo(index) {
       this.popmodel = false;
-      this.$store.dispatch("updateTodo", payload);
-      console.log("updated from vue sucss , and pal:", payload);
+      this.$store.dispatch("updateTodo", {
+        index,
+        updatedTodo: this.selectedItem,
+      });
     },
-    // ///
+    // ///////////////
   },
 };
 </script>
 <style lang="scss" scoped>
-$base-color: #a7b2b5;
+$base-color: rgba(216, 229, 233, 0.929);
 .todo {
   text-transform: capitalize;
   width: 90%;
@@ -207,7 +223,7 @@ $base-color: #a7b2b5;
 .popup-compon {
   width: 60%;
   padding: 1rem;
-  background-color: rgb(174, 216, 185);
+  background-color: rgba(207, 244, 217, 0.875);
   border-radius: 2rem;
   position: absolute;
   top: 30%;
@@ -216,7 +232,6 @@ $base-color: #a7b2b5;
   font-weight: bold;
   // display: flex;
   input[type="submit"] {
-    width: 30%;
     margin: 2rem auto;
     border-radius: 2rem;
   }
@@ -225,9 +240,9 @@ $base-color: #a7b2b5;
   width: 100%;
   height: 100%;
   padding: 1rem;
-  overflow: hidden;
-  background-color: rgba(148, 163, 184, 0.7);
-  position: absolute;
+  // overflow: hidden;
+  background-color: rgba(206, 216, 230, 0.7);
+  position: fixed;
   top: 0;
   left: 0;
 }
