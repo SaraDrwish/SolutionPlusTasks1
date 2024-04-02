@@ -88,28 +88,24 @@
             <div class="popup-compon-lay" @click="popmodel = false"></div>
             <div class="popup-compon p-4 flex flex-col">
               <p class="mb-8 text-red-400">Edit the note</p>
-              <p>----{{ index }}----</p>
-              <div
-                v-for="(item, index) in todosList"
-                :key="index"
-                class="p-4 flex gap-4 items-center text-orange-400"
-              >
+              <!-- <p>----{{ index }}----</p> -->
+              <div class="p-4 flex gap-4 items-center text-orange-400">
                 <label>title:</label>
                 <input
                   class="p-1 rounded-[1rem] text-slate-400"
                   type="text"
-                  v-model="item.title"
+                  v-model="selectedItem.title"
                 />
                 <label>description:</label>
                 <input
                   class="p-1 rounded-[1rem] text-slate-400"
                   type="text"
-                  v-model="item.desc"
+                  v-model="selectedItem.desc"
                 />
               </div>
 
               <input
-                @click="updateTodo"
+                @click="updateTodo(selectedIndex)"
                 class="border-2 border-red-400 px-8 py-3 cursor-pointer text-red-400 mt-9"
                 type="submit"
                 value="Update"
@@ -138,8 +134,8 @@ export default {
         completed: false,
       },
       popmodel: false,
-      // selectedItem: { title: "", desc: "" },
-      // selectedIndex: null,
+      selectedItem: { title: "", desc: "" },
+      selectedIndex: null,
     };
   },
   computed: {
@@ -179,35 +175,43 @@ export default {
     //   this.$store.dispatch("updateTodo", { index, updatedTodo });
     // },
     // ////
+    // editTodo(index, item) {
+    //   // Show the popup
+    //   this.popmodel = true;
+
+    //   // Update the item in the store
+    //   this.$store.dispatch("updateTodo", { index, el: item });
+    // },
+
+    // updateTodo() {
+    //   // Close the popup
+    //   this.popmodel = false;
+    // },
+    // ////////////
     editTodo(index, item) {
+      // Set the selectedIndex and selectedItem
+      this.selectedIndex = index;
+      this.selectedItem = { ...item };
+
       // Show the popup
       this.popmodel = true;
-
-      // Update the item in the store
-      this.$store.dispatch("updateTodo", { index, el: item });
     },
-
     updateTodo() {
-      // Close the popup
-      this.popmodel = false;
+      if (this.selectedIndex !== null) {
+        // Dispatch the updateTodo action with the selectedIndex and selectedItem
+        this.$store.dispatch("updateTodo", {
+          index: this.selectedIndex,
+          el: this.selectedItem,
+        });
+
+        // Reset selectedIndex and selectedItem
+        this.selectedIndex = null;
+        this.selectedItem = { title: "", desc: "" };
+
+        // Close the popup
+        this.popmodel = false;
+      }
     },
-    // ////////////
-    // editTodo(index) {
-    //   this.popmodel = true;
-    //   this.selectedItem = { ...this.todosList[index] };
-    //   this.selectedIndex = index;
-    // },
-    // updateTodo() {
-    //   if (this.selectedIndex !== null) {
-    //     this.$store.dispatch("updateTodo", {
-    //       index: this.selectedIndex,
-    //       el: this.selectedItem,
-    //     });
-    //     this.popmodel = false;
-    //     this.selectedItem = { title: "", desc: "" };
-    //     this.selectedIndex = null;
-    //   }
-    // },
 
     // ///////////////
   },
