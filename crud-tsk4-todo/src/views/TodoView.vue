@@ -168,12 +168,11 @@ export default {
       this.updatedTodos = { ...el };
       this.popmodel = true;
     },
-    updateTodo() {
+    updateTodo(index) {
       this.$store.dispatch("updateTodo", {
-        index: this.selectedIndex,
+        index,
         el: this.updatedTodos,
       });
-
       this.popmodel = false;
     },
 
