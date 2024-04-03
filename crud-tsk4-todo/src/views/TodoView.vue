@@ -93,13 +93,13 @@
                 <input
                   class="p-1 rounded-[1rem] text-slate-400"
                   type="text"
-                  v-model="selectedItem.title"
+                  v-model="updatedTodos.title"
                 />
                 <label>description:</label>
                 <input
                   class="p-1 rounded-[1rem] text-slate-400"
                   type="text"
-                  v-model="selectedItem.desc"
+                  v-model="updatedTodos.desc"
                 />
               </div>
 
@@ -133,7 +133,7 @@ export default {
         completed: false,
       },
       popmodel: false,
-      selectedItem: { title: "", desc: "" },
+      // selectedItem: { title: "", desc: "" },
       selectedIndex: null,
     };
   },
@@ -163,16 +163,15 @@ export default {
     },
 
     // ////////////
-    editTodo(index, item) {
-      // Set the selectedIndex and selectedItem
+    editTodo(index, el) {
       this.selectedIndex = index;
-      this.selectedItem = { ...item };
+      this.updatedTodos = { ...el };
       this.popmodel = true;
     },
     updateTodo() {
       this.$store.dispatch("updateTodo", {
         index: this.selectedIndex,
-        el: this.selectedItem,
+        el: this.updatedTodos,
       });
 
       this.popmodel = false;
@@ -212,11 +211,9 @@ $base-color: rgba(216, 229, 233, 0.929);
   width: 100%;
   height: 100%;
   padding: 1rem;
-  // overflow: hidden;
   background-color: rgba(206, 216, 230, 0.363);
   position: fixed;
   top: 0;
   left: 0;
-  // z-index: 999;
 }
 </style>
